@@ -4,7 +4,7 @@ import 'rxjs';
 
 @Injectable()
 export class TableService{
-    private baseUrl = "http://jsonplaceholder.typicode.com";
+    private baseUrl = "https://jsonplaceholder.typicode.com";
 
     constructor(private _http: Http){
         
