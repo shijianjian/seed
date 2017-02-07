@@ -18,6 +18,7 @@ export class TableComponent {
 
     ngOnInit(){
         this.loadUsers();
+        console.log(this.users);
     }
 
     loadUsers(){
