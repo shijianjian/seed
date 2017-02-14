@@ -1,19 +1,2 @@
-<div class="row">
-<my-search-box class="col-sm-11" (updateData)="updateDataHandler($event)">waiting...</my-search-box>
-
-<my-data-renderer-modal 
-        class="col-sm-1"
-        (updateData)="updateDataHandler($event)" 
-        [data]="columns" 
-        [action]="actionEnum.CREATE"
-        [title]="modalTitle"
-        [buttonName]="buttonName"
-        [container]="ContentEnum.FORM"></my-data-renderer-modal>
-</div>
-
-<div class="row">
-    <my-cards [data]="data" [action]="actionEnum.EDIT" (deleteMessage)="deleteMessageHandler($event)"></my-cards>
-</div>
-
-
+<my-materials></my-materials>
 

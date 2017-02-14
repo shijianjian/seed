@@ -19,6 +19,8 @@
     "@angular/platform-server": "2.4.6",
     "@angular/router": "3.4.6",
     "@angular/upgrade": "2.4.6",
+    "@ngrx/core": "^1.2.0",
+    "@ngrx/store": "^2.2.1",
     "body-parser": "~1.15.2",
     "bootstrap": "^3.3.7",
     "cookie-parser": "~1.4.3",
@@ -36,6 +38,7 @@
     "zone.js": "^0.7.6"
   },
   "devDependencies": {
+    "@ngrx/store-devtools": "^3.2.3",
     "@types/core-js": "^0.9.34",
     "@types/node": "^6.0.45",
     "angular2-router-loader": "^0.3.2",
