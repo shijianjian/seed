@@ -1,17 +1,25 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
+
+// import { ModalModule } from 'ng2-bootstrap';
+
+import { MaterialsModule } from './materials/materials.module';
 
 import { AppComponent } from "./app.component";
-import { TableComponent } from "./table/table.component";
+
+
+import '../../node_modules/font-awesome/css/font-awesome.min.css';
+
 
 @NgModule({
     declarations: [
-        AppComponent,
-        TableComponent
+        AppComponent
     ],
-    imports: [BrowserModule, FormsModule, HttpModule],
+    imports: [
+        BrowserModule,
+        // ModalModule.forRoot(),
+        MaterialsModule
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

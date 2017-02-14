@@ -1,0 +1,12 @@
+<div *ngIf="item.key!='id'" class="form-group row" [formGroup]="form">
+        <label for="item.key" class="col-md-3 col-form-label">{{ item.key | uppercase }} :</label>
+        <div class="col-md-9">
+            <input 
+                [formControlName]="item.key" 
+                [formGroup]="form"
+                id="item.key" 
+                class="form-control" 
+                type="text" 
+                value="item.value">
+        </div>
+</div>
