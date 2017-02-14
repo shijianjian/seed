@@ -1,0 +1,41 @@
+<div class="card">
+    <div class="card-header">
+        <i
+          class="fa" 
+          [class.fa-star]="isActive"
+          [class.fa-star-o]="!isActive"
+          (click)="onClick()"
+          aria-hidden="true"
+          >
+        </i>
+        <!-- Edit button -->
+        <a (click)="onEdit()">Edit</a>
+        <my-data-renderer-modal 
+              #dmodal
+              [container]="ContentEnum.FORM"
+              [action]="action"
+              [data]="item | objs" 
+              [title]="modalTitle">
+        </my-data-renderer-modal>
+
+        <!-- Delete Button -->
+        <a (click)="deleteConfirmation()">{{ title }}</a>
+        <my-confirmation-modal
+              #cmodal
+              [title]="'Delete'"
+              [briefing]="briefing"
+              [buttonName]="'Delete'"
+              [checkbox]="checkMessage"
+              (outwardMessage)="onDelete($event)"
+              [action]="'delete'"
+              [data]="item | objs">
+        </my-confirmation-modal>
+
+    </div>
+    <div class="card-block">
+      <my-table-list [item]="item"></my-table-list>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">Last updated 3 mins ago</small>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+<form [formGroup]="materialsForm" (ngSubmit)="onSubmit()">
+    <div *ngFor="let item of data | keys" class="form-row">
+        <my-form-item [data]="item" [form]="materialsForm"></my-form-item>
+    </div>
+    <div class="form-row">
+        <button 
+            [disabled]="materialsForm.pristine"
+            type="submit"
+            class="btn btn-primary">{{title}}</button>
+    </div>
+</form>

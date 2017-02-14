@@ -1,0 +1,18 @@
+<div class="row">
+  <input 
+    #search
+    id="search"
+    class="form-control"
+    type="text" 
+    (focus)="onFocus()"
+    placeholder="Search..." 
+    [(ngModel)]="searchBox"
+    name="searchBox">
+
+    <my-search-box-dropdown 
+              class="row"
+              [data]="materials" 
+              [target]="targetSearch"
+    ></my-search-box-dropdown>
+    
+</div>
