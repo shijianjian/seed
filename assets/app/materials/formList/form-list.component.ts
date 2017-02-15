@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, OnChanges, EventEmitter} from '@angular/core';
+import { Component, Input, Output, OnInit, DoCheck, OnChanges, EventEmitter} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { FormItemControlService } from './form-item-control.service';
@@ -19,33 +19,29 @@ export class FormListComponent implements OnChanges {
     @Output() submitted = new EventEmitter();
 
     materialsForm: FormGroup;
-    payLoad = '';
-    err;
 
     constructor(
         private _materialService: MaterialService,
         private _formItemControlService: FormItemControlService
     ) { }
-
+    
     ngOnChanges(dataChanges){
         this.materialsForm = this._formItemControlService.toFormGroup(this.data); 
     }
 
-    ngOnInit() {
-          
-    }
-
     onSubmit() {
-        this.payLoad = JSON.stringify(this.materialsForm.value);
+        let payLoad = JSON.stringify(this.materialsForm.value);
         if(this.action == 0){
-            this._materialService.createMaterial(this.payLoad);
+            this._materialService.createMaterial(payLoad);
             this.submitted.emit({ submitted: true});
         }
 
         if(this.action == 1) {
-            this._materialService.updateMaterial(this.payLoad);
+            this._materialService.updateMaterial(payLoad);
             this.submitted.emit({ submitted: true});
         }
+        // clear the form
+        this.materialsForm.reset();
     }
    
 }

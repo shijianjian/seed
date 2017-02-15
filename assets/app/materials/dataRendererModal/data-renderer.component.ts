@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, ViewChild, Input, Output, OnInit, DoCheck, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 
@@ -18,7 +18,7 @@ export class DataRendererModalComponent {
 
     @ViewChild('dataRenderModal') public dataRenderModal: ModalDirective;
 
-    constructor(private _materialService: MaterialService) { }
+    constructor(private _materialService: MaterialService) {  }
 
     submitHandler(e){
         if(e.submitted == true){
