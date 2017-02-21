@@ -7,7 +7,8 @@ import 'rxjs';
 @Injectable()
 export class MaterialService{
 
-    private baseUrl = "http://localhost:8080";
+    private baseUrl = "https://jian-shi-spring-music.run.aws-usw02-pr.ice.predix.io";
+    // private baseUrl = "http://localhost:8080";
 
     constructor(private _http: Http){ 
         this.getColumns();
@@ -57,32 +58,26 @@ export class MaterialService{
     }
 
     createMaterial(material){
-        // TODO: not working, maybe since spring boot
-        this._http.post(this.baseUrl + "/api/employee/add", material)
+        this._http.post(this.baseUrl + "/api/employee", material)
                     .map(res =>  res.json())
                     .subscribe(data => {
-                        for(var i = 0; i<data.length; i++){
-                            this._data.push(data[i]);
-                        }
+                        this.addData(data);
                         this.data.next(this._data);
                     });
     }
 
     updateMaterial(material) {
-        // TODO
-        this._http.put(this.baseUrl + "/api/employee/update", material)
+        this._http.put(this.baseUrl + "/api/employee", material)
                     .map(res => res.json())
                     .subscribe(data => {
-                        for(var i = 0; i<data.length; i++){
-                            this.updateData(data[0]);
-                        }
+                        this.updateData(data);
                     });
     }
 
     deleteMaterial(id) {
         // TODO
-        this._http.delete(this.baseUrl + "/api/employee/delete", id)
-                    .map(res => res.json)
+        this._http.delete(this.baseUrl + "/api/employee/{id}", id)
+                    .map(res => res.json())
                     .subscribe( confirmation => console.log(confirmation));
     }
 
@@ -108,6 +103,7 @@ export class MaterialService{
         if(this.checkDataExists(obj.id)) {
             this._data.splice(this.findDataIndex(obj.id), 1);
             this._data.push(obj);
+            console.log(obj)
             this.data.next(this._data);
         }
     }

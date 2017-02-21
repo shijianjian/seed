@@ -1,16 +1,16 @@
 <div class="row">
 <my-search-box 
         class="col-sm-11">waiting...</my-search-box>
-
-<button 
-        *ngIf="buttonName != ''" 
-        type="button" 
-        class="btn btn-primary" 
-        (click)="showDataRendererModal()">{{ buttonName }}</button>
+<div class="col-sm-1">
+        <button 
+                *ngIf="buttonName != ''" 
+                type="button" 
+                class="btn btn-primary" 
+                (click)="showDataRendererModal()">{{ buttonName }}</button>
+</div>
         
 <my-data-renderer-modal 
         #modal
-        class="col-sm-1"
         [title]="modalTitle"
         [data]="columns" 
         [action]="actionEnum.CREATE"

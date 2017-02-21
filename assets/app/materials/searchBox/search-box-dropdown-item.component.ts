@@ -8,8 +8,8 @@ import { JsonObjectPipe } from '../../common/json-object.pipe';
     selector: 'my-search-box-dropdown-item',
     template: `
         <a *ngFor="let one of item">
-            <td class="col-sm-5" (click)="onClick(item)" *ngIf="one.value.toUpperCase().indexOf(target.toUpperCase())>-1 && target!=''">{{one.key}}</td>
-            <td class="col-sm-7" (click)="onClick(item)" *ngIf="one.value.toUpperCase().indexOf(target.toUpperCase())>-1 && target!=''">: {{one.value}}</td>
+            <td class="col-sm-5" (click)="onClick(item)" *ngIf="one.value && one.value.toUpperCase().indexOf(target.toUpperCase())>-1 && target!=''">{{one.key}}</td>
+            <td class="col-sm-7" (click)="onClick(item)" *ngIf="one.value && one.value.toUpperCase().indexOf(target.toUpperCase())>-1 && target!=''">: {{one.value}}</td>
         </a>
         <my-data-renderer-modal
             #modal
