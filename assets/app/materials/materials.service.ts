@@ -7,8 +7,8 @@ import 'rxjs';
 @Injectable()
 export class MaterialService{
 
-    private baseUrl = "https://jian-shi-spring-music.run.aws-usw02-pr.ice.predix.io";
-    // private baseUrl = "http://localhost:8080";
+    // private baseUrl = "https://jian-shi-spring-music.run.aws-usw02-pr.ice.predix.io";
+    private baseUrl = "http://localhost:8080";
 
     constructor(private _http: Http){ 
         this.getColumns();
@@ -23,7 +23,7 @@ export class MaterialService{
     search = new BehaviorSubject<Array<Object>>(this._search);
 
     getAllData(){
-        return this._http.get(this.baseUrl + '/api/employees')
+        return this._http.get(this.baseUrl + '/albums')
                 .map(res => res.json());
     }
 
@@ -34,7 +34,7 @@ export class MaterialService{
 
     getDataByName(name){
         this.clearSearchData();
-        this._http.get(this.baseUrl + '/api/employee?query=' + name )
+        this._http.get(this.baseUrl + '/albums?query=' + name )
                     .map(res => res.json())
                     .distinctUntilChanged()
                     .subscribe(data => {
@@ -48,7 +48,7 @@ export class MaterialService{
     }
 
     getColumns() {
-        this._http.get(this.baseUrl + '/api/columns')
+        this._http.get(this.baseUrl + '/albums/columns')
                     .map(res => res.json())
                     .distinctUntilChanged()
                     .subscribe(data => {
@@ -58,7 +58,7 @@ export class MaterialService{
     }
 
     createMaterial(material){
-        this._http.post(this.baseUrl + "/api/employee", material)
+        this._http.post(this.baseUrl + "/albums/album", material)
                     .map(res =>  res.json())
                     .subscribe(data => {
                         this.addData(data);
@@ -67,7 +67,7 @@ export class MaterialService{
     }
 
     updateMaterial(material) {
-        this._http.put(this.baseUrl + "/api/employee", material)
+        this._http.put(this.baseUrl + "/albums/album", material)
                     .map(res => res.json())
                     .subscribe(data => {
                         this.updateData(data);
@@ -75,10 +75,10 @@ export class MaterialService{
     }
 
     deleteMaterial(id) {
-        // TODO
-        this._http.delete(this.baseUrl + "/api/employee/{id}", id)
-                    .map(res => res.json())
-                    .subscribe( confirmation => console.log(confirmation));
+        this._http.delete(this.baseUrl + "/albums/album/"+id)
+                    .subscribe( confirmation => 
+                        console.log(confirmation)
+                    );
     }
 
 

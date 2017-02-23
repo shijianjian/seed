@@ -1,10 +1,8 @@
-<table class="table table-hover">
-  <tbody>
-        <my-search-box-dropdown-item 
-                  class="row" 
-                  *ngFor="let item of data" 
-                  [item]="item | keys" 
-                  [target]="target">
-        </my-search-box-dropdown-item>
-  </tbody>
-</table>
+<div>
+      <my-search-box-dropdown-item 
+                style="width: 100%"
+                *ngFor="let item of data" 
+                [item]="item | keys" 
+                [target]="target">
+      </my-search-box-dropdown-item>
+</div>

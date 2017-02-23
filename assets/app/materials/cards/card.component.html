@@ -19,7 +19,9 @@
         </my-data-renderer-modal>
 
         <!-- Delete Button -->
-        <a (click)="deleteConfirmation()">{{ title }}</a>
+        <a (click)="deleteConfirmation()">
+          <i class="fa fa-times fa-pull-right" aria-hidden="true"></i>
+        </a>
         <my-confirmation-modal
               #cmodal
               [title]="'Delete'"

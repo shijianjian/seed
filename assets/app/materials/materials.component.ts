@@ -7,7 +7,10 @@ import { DataRendererModalComponent } from './dataRendererModal/data-renderer.co
 
 @Component({
     selector: 'my-materials',
-    templateUrl: './materials.component.html'
+    templateUrl: './materials.component.html',
+    providers: [
+        MaterialService
+    ]
 })
 
 @ActionEnumDecorator

@@ -19,8 +19,6 @@ import { FormItemComponent } from './formList/form-item.component';
 import { TableListComponent } from './tableList/table-list.component';
 import { MaterialsComponent } from './materials.component';
 
-import { MaterialService } from './materials.service';
-
 @NgModule({
   declarations: [
     SearchBoxComponent,
@@ -44,9 +42,6 @@ import { MaterialService } from './materials.service';
   ],
   exports: [
     MaterialsComponent
-  ],
-  providers: [
-    MaterialService
   ]
 })
 export class MaterialsModule { }

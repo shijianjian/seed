@@ -26,7 +26,6 @@ export class CardComponent{
     modalTitle = "Edit & Save";
     anchorName = "Edit";
 
-    title = "Delete";
     briefing = "You will delete this card from your library.";
     checkMessage = "Delete from database. (Admin only)";
 
@@ -38,10 +37,10 @@ export class CardComponent{
 
     onDelete(e) {
         if(e.action == "delete") {
-            this._materialService.deleteData(e.data);
             if(e.checkbox == true) {
-                this._materialService.deleteMaterial(e.data);
+                this._materialService.deleteMaterial(e.data.id);
             }
+            this._materialService.deleteData(e.data);
         }
     }
 

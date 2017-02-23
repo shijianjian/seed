@@ -1,6 +1,6 @@
 
 body {
-  padding: 50px !important;
+  padding: 0 !important;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -26,3 +26,8 @@ a.danger {
 input.ng-invalid.ng-touched {
   border: 1px solid red;
 }
+
+.list-group { 
+    min-width: 400px;
+    width: 100%;
+ }

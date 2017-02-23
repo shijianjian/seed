@@ -1,14 +1,30 @@
+  <div class="row">
+        <div class="btn-group dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-cog" aria-hidden="true"></i>
+                <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+                        <li><a href="#">Import data</a></li>
+                        <li><a
+                                (click)="showDataRendererModal()">Add new data</a>
+                        </li>
+                </ul>
+        </div>
+</div>
+
 <div class="row">
 <my-search-box 
         class="col-sm-11">waiting...</my-search-box>
 <div class="col-sm-1">
         <button 
-                *ngIf="buttonName != ''" 
                 type="button" 
                 class="btn btn-primary" 
                 (click)="showDataRendererModal()">{{ buttonName }}</button>
+
 </div>
-        
+
+
 <my-data-renderer-modal 
         #modal
         [title]="modalTitle"
@@ -18,7 +34,7 @@
 </div>
 
 <div class="row">
-    <my-cards [data]="data" [action]="actionEnum.EDIT"></my-cards>
+    <my-cards class="col-sm-12" [data]="data" [action]="actionEnum.EDIT"></my-cards>
 </div>
 
 
