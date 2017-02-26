@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { MaterialsModule } from './materials/materials.module';
 import { NavModule } from './nav/nav.module';
+import { SidebarModule } from './sidebar/sidebar.module';
 
 import { AppComponent } from "./app.component";
 
@@ -13,7 +14,8 @@ import { AppComponent } from "./app.component";
     imports: [
         BrowserModule,
         NavModule,
-        MaterialsModule
+        MaterialsModule,
+        SidebarModule
     ],
     bootstrap: [AppComponent]
 })

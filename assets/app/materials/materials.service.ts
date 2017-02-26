@@ -17,10 +17,12 @@ export class MaterialService{
     private _data = [];
     private _columns = [];
     private _search = [];
+    private _dataView = [];
 
     data = new BehaviorSubject<Array<Object>>(this._data);
     columns = new BehaviorSubject<Array<Object>>(this._columns);
     search = new BehaviorSubject<Array<Object>>(this._search);
+    dataView = new BehaviorSubject<Array<Object>>(this._dataView);
 
     getAllData(){
         return this._http.get(this.baseUrl + '/albums')
@@ -53,8 +55,20 @@ export class MaterialService{
                     .distinctUntilChanged()
                     .subscribe(data => {
                         this._columns = data;
+                        this.updateDataView();
                         this.columns.next(this._columns);
                     });
+        
+    }
+
+    updateDataView() {
+        // TODO: grab this from the server backend.
+        this.columns.subscribe(res => {
+            for(let item in res) {
+                this._dataView.push({"key": item , "value": true});
+            }
+            this.dataView.next(this._dataView);
+        });
     }
 
     createMaterial(material){

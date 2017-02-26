@@ -4,6 +4,7 @@ import { MaterialService } from './materials.service';
 import { ContentEnum, ContentEnumDecorator, ActionEnum, ActionEnumDecorator } from './enums';
 
 import { DataRendererModalComponent } from './dataRendererModal/data-renderer.component';
+import { DragListComponent } from './dragList/drag-list.component'
 
 @Component({
     selector: 'my-materials',
@@ -14,17 +15,17 @@ import { DataRendererModalComponent } from './dataRendererModal/data-renderer.co
 })
 
 @ActionEnumDecorator
-@ContentEnumDecorator
+// @ContentEnumDecorator
 export class MaterialsComponent implements OnInit, OnDestroy {
 
-    modalTitle = "Add New Data";
-    buttonName = "+";
-    columns;
+    // modalTitle = "Add New Data";
+    // buttonName = "+";
     data;
 
     @ViewChild('modal') public modal: DataRendererModalComponent;
+    @ViewChild('draglist') public draglist: DragListComponent;
 
-    contentEnum: any = ContentEnum;
+    // contentEnum: any = ContentEnum;
     actionEnum: any = ActionEnum;
 
     constructor(
@@ -33,15 +34,13 @@ export class MaterialsComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this._materialService.data.subscribe(res => this.data = res);
-        this._materialService.columns.subscribe(res => this.columns = res);
     }
 
     ngOnDestroy() {
         this._materialService.data.unsubscribe();
-        this._materialService.columns.unsubscribe();
     }
 
     showDataRendererModal(){
-        this.modal.showDataRendererModal();
+        this.draglist.showConfirmationModal();
     }
 }
