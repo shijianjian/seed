@@ -1,15 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-// import { ModalModule } from 'ng2-bootstrap';
-
 import { MaterialsModule } from './materials/materials.module';
+import { NavModule } from './nav/nav.module';
+import { SidebarModule } from './sidebar/sidebar.module';
 
 import { AppComponent } from "./app.component";
-
-
-import '../../node_modules/font-awesome/css/font-awesome.min.css';
-
 
 @NgModule({
     declarations: [
@@ -17,8 +13,9 @@ import '../../node_modules/font-awesome/css/font-awesome.min.css';
     ],
     imports: [
         BrowserModule,
-        // ModalModule.forRoot(),
-        MaterialsModule
+        NavModule,
+        MaterialsModule,
+        SidebarModule
     ],
     bootstrap: [AppComponent]
 })

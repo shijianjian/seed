@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DragulaModule } from 'ng2-dragula';
 
 import { CommonModule } from '../common/common.module';
 // Does not work with system.js
@@ -18,8 +19,8 @@ import { FormListComponent } from './formList/form-list.component';
 import { FormItemComponent } from './formList/form-item.component';
 import { TableListComponent } from './tableList/table-list.component';
 import { MaterialsComponent } from './materials.component';
+import { DragListComponent } from './dragList/drag-list.component'
 
-import { MaterialService } from './materials.service';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { MaterialService } from './materials.service';
     TableListComponent,
     CardsComponent,
     CardComponent,
+    DragListComponent,
     SearchBoxDropdownComponent,
     SearchBoxDropdownItemComponent,
     MaterialsComponent
@@ -39,14 +41,12 @@ import { MaterialService } from './materials.service';
     ReactiveFormsModule,
     FormsModule, 
     HttpModule, 
+    DragulaModule,
     CommonModule,
     ModalModule.forRoot()
   ],
   exports: [
     MaterialsComponent
-  ],
-  providers: [
-    MaterialService
   ]
 })
 export class MaterialsModule { }

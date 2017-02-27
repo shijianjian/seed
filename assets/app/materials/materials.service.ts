@@ -7,8 +7,8 @@ import 'rxjs';
 @Injectable()
 export class MaterialService{
 
-    private baseUrl = "https://jian-shi-spring-music.run.aws-usw02-pr.ice.predix.io";
-    // private baseUrl = "http://localhost:8080";
+    // private baseUrl = "https://jian-shi-spring-music.run.aws-usw02-pr.ice.predix.io";
+    private baseUrl = "http://localhost:8080";
 
     constructor(private _http: Http){ 
         this.getColumns();
@@ -17,13 +17,15 @@ export class MaterialService{
     private _data = [];
     private _columns = [];
     private _search = [];
+    private _dataView = [];
 
     data = new BehaviorSubject<Array<Object>>(this._data);
     columns = new BehaviorSubject<Array<Object>>(this._columns);
     search = new BehaviorSubject<Array<Object>>(this._search);
+    dataView = new BehaviorSubject<Array<Object>>(this._dataView);
 
     getAllData(){
-        return this._http.get(this.baseUrl + '/api/employees')
+        return this._http.get(this.baseUrl + '/albums')
                 .map(res => res.json());
     }
 
@@ -34,7 +36,7 @@ export class MaterialService{
 
     getDataByName(name){
         this.clearSearchData();
-        this._http.get(this.baseUrl + '/api/employee?query=' + name )
+        this._http.get(this.baseUrl + '/albums?query=' + name )
                     .map(res => res.json())
                     .distinctUntilChanged()
                     .subscribe(data => {
@@ -48,17 +50,29 @@ export class MaterialService{
     }
 
     getColumns() {
-        this._http.get(this.baseUrl + '/api/columns')
+        this._http.get(this.baseUrl + '/albums/columns')
                     .map(res => res.json())
                     .distinctUntilChanged()
                     .subscribe(data => {
                         this._columns = data;
+                        this.updateDataView();
                         this.columns.next(this._columns);
                     });
+        
+    }
+
+    updateDataView() {
+        // TODO: grab this from the server backend.
+        this.columns.subscribe(res => {
+            for(let item in res) {
+                this._dataView.push({"key": item , "value": true});
+            }
+            this.dataView.next(this._dataView);
+        });
     }
 
     createMaterial(material){
-        this._http.post(this.baseUrl + "/api/employee", material)
+        this._http.post(this.baseUrl + "/albums/album", material)
                     .map(res =>  res.json())
                     .subscribe(data => {
                         this.addData(data);
@@ -67,7 +81,7 @@ export class MaterialService{
     }
 
     updateMaterial(material) {
-        this._http.put(this.baseUrl + "/api/employee", material)
+        this._http.put(this.baseUrl + "/albums/album", material)
                     .map(res => res.json())
                     .subscribe(data => {
                         this.updateData(data);
@@ -75,10 +89,10 @@ export class MaterialService{
     }
 
     deleteMaterial(id) {
-        // TODO
-        this._http.delete(this.baseUrl + "/api/employee/{id}", id)
-                    .map(res => res.json())
-                    .subscribe( confirmation => console.log(confirmation));
+        this._http.delete(this.baseUrl + "/albums/album/"+id)
+                    .subscribe( confirmation => 
+                        console.log(confirmation)
+                    );
     }
 
 
