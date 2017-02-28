@@ -1,43 +1,41 @@
 <div class="card">
     <div class="card-header">
-        <i
-          class="fa" 
-          [class.fa-star]="isActive"
-          [class.fa-star-o]="!isActive"
-          (click)="onClick()"
-          aria-hidden="true"
-          >
-        </i>
-        <!-- Edit button -->
-        <a (click)="onEdit()">Edit</a>
-        <my-data-renderer-modal 
-              #dmodal
-              [container]="ContentEnum.FORM"
-              [action]="action"
-              [data]="item | objs" 
-              [title]="modalTitle">
-        </my-data-renderer-modal>
+        <a (click)="onEdit()">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        </a>
+        <my-modal [title]="'Edit'" #dmodal>
+              <my-form-list
+                  style="padding: 10px;"
+                  [data]="item | objs"
+                  [button]="'Save'"
+                  (submit)="onSave($event)"
+              ></my-form-list>
+        </my-modal>
 
         <!-- Delete Button -->
         <a (click)="deleteConfirmation()">
           <i class="fa fa-times fa-pull-right" aria-hidden="true"></i>
         </a>
-        <my-confirmation-modal
-              #cmodal
-              [title]="'Delete'"
-              [briefing]="briefing"
-              [buttonName]="'Delete'"
-              [checkbox]="checkMessage"
-              (outwardMessage)="onDelete($event)"
-              [action]="'delete'"
-              [data]="item | objs">
-        </my-confirmation-modal>
+        <my-modal [title]="'Delete'" #cmodal>
+          <div class="modal-body">
+            <p>{{briefing}}</p>
+            <p>
+                <i
+                    class="fa" 
+                    [class.fa-check-square-o]="checked"
+                    [class.fa-square-o]="!checked"
+                    (click)="onCheck()"
+                    aria-hidden="true"
+                    >
+                </i>
+                {{ checkbox }}
+            </p>
+            <button type="button" class="btn btn-primary" (click)="onDelete()">Confirm</button>
+          </div>
+        </my-modal>
 
     </div>
-    <div class="card-block">
+    <div class="card-body">
       <my-table-list [item]="item"></my-table-list>
-    </div>
-    <div class="card-footer">
-      <small class="text-muted">Last updated 3 mins ago</small>
     </div>
 </div>

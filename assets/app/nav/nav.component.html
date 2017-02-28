@@ -1,4 +1,4 @@
-<nav class="navbar navbar-toggleable-md fixed-top navbar-inverse bg-inverse" style="">
+<nav class="navbar navbar-toggleable-md fixed-top navbar-inverse bg-inverse">
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -33,11 +33,9 @@
   </div>
 </nav>
 
-<my-confirmation-modal
-  #modal
-  [title]="title"
-  [briefing]="briefing"
-  [buttonName]="buttonName"
-  [data]=data
-  (outwardMessage)="onConfirm($event)"
-  ></my-confirmation-modal>
+<my-modal [title]="title" #modal>
+    <div class="modal-body">
+      <p>{{ briefing }}</p>
+      <button type="button" class="btn btn-primary" (click)="onConfirm()">Confirm</button>
+    </div>
+</my-modal>

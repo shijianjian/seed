@@ -1,55 +1,49 @@
 import { Component, Input, Output, ViewChild, EventEmitter } from '@angular/core';
 
 import { MaterialService } from '../materials.service';
-import { ContentEnum, ContentEnumDecorator } from '../enums';
-// TODO: delete the line
-import { ConfirmationModalComponent } from '../../common/confirmationModal.component';
-import { DataRendererModalComponent } from '../dataRendererModal/data-renderer.component';
 
+import { JsonObjectPipe } from '../../common/json-object.pipe';
+import { ModalComponent } from '../../common/modal.component';
 
 @Component({
     selector: 'my-card',
     templateUrl: './card.component.html'
 })
 
-@ContentEnumDecorator
 export class CardComponent{
     @Input('data') item;
-    @Input() isActive = false;
-    @Output() activeCondition = new EventEmitter();
-    @Output() deleteMessage = new EventEmitter();
-    @Input() action;
+    checked = false;
 
-    @ViewChild('cmodal') cmodal : ConfirmationModalComponent;
-    @ViewChild('dmodal') dmodal : DataRendererModalComponent;
-    
-    modalTitle = "Edit & Save";
-    anchorName = "Edit";
+    @ViewChild('cmodal') cmodal : ModalComponent;
+    @ViewChild('dmodal') dmodal : ModalComponent;
 
     briefing = "You will delete this card from your library.";
-    checkMessage = "Delete from database. (Admin only)";
+    checkbox = "Delete from database. (Admin only)";
 
     constructor(private _materialService: MaterialService) {}
 
     onEdit() {
-        this.dmodal.showDataRendererModal();
+        this.dmodal.showConfirmationModal();
     }
 
-    onDelete(e) {
-        if(e.action == "delete") {
-            if(e.checkbox == true) {
-                this._materialService.deleteMaterial(e.data.id);
-            }
-            this._materialService.deleteData(e.data);
+    onDelete() {
+        let data = new JsonObjectPipe().transform(this.item)
+        if(this.checked == true) {
+            this._materialService.deleteMaterial(data.id);
         }
+        this._materialService.deleteData(data);
+        this.cmodal.hideConfirmationModal();
+    }
+
+    onSave(e){
+        this._materialService.updateMaterial(e.data);
     }
 
     deleteConfirmation() {
         this.cmodal.showConfirmationModal();
     }
 
-    onClick(){
-        this.isActive = !this.isActive;
-        this.activeCondition.emit({ active: this.isActive });
+    onCheck(){
+        this.checked = !this.checked;
     }
 }

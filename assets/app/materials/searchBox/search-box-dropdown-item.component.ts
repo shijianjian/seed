@@ -1,7 +1,7 @@
-import { Component, Input, Output, ViewChild, EventEmitter } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 
-import { ContentEnum, ContentEnumDecorator } from '../enums';
-import { DataRendererModalComponent } from '../dataRendererModal/data-renderer.component'
+import { MaterialService } from '../materials.service';
+import { ModalComponent } from '../../common/modal.component';
 import { JsonObjectPipe } from '../../common/json-object.pipe';
 
 @Component({
@@ -11,31 +11,39 @@ import { JsonObjectPipe } from '../../common/json-object.pipe';
             <div class="col-sm-2 input-group-addon my-search-list-item" *ngIf="one.value && one.value.toUpperCase().indexOf(target.toUpperCase())>-1 && target!='' && one.key.toUpperCase()!='ID'">{{one.key}}</div>
             <div class="col-sm-10 form-control my-search-list-item" *ngIf="one.value && one.value.toUpperCase().indexOf(target.toUpperCase())>-1 && target!='' && one.key.toUpperCase()!='ID'"> {{one.value}}</div>
         </a>
-        <my-data-renderer-modal
-            #modal
-            [container]="ContentEnum.TABLE"
-            [data]="data" 
-            [title]="modalTitle">
-        </my-data-renderer-modal>
+        <my-modal [title]="title" #modal>
+            <div class="modal-body">
+                <my-table-list
+                    [item]="data"
+                ></my-table-list>
+                <button class="btn btn-primary" type="button" (click)="addClick()">Add</button>
+            </div>
+        </my-modal>
         `
 })
 
-@ContentEnumDecorator
 export class SearchBoxDropdownItemComponent {
     @Input() item;
     // reminder: target is the text typed in the searchBox
     @Input() target;
 
-    @ViewChild('modal') modal: DataRendererModalComponent;
+    @ViewChild('modal') modal: ModalComponent;
 
-    modalTitle = "Add it to Library";
+    title = "Add it to Library";
     data = [];
 
-    constructor( ){}
+    constructor( 
+        private _materialService: MaterialService
+    ){}
 
     onClick(data) {
         this.data = data;
-        this.modal.showDataRendererModal();
+        this.modal.showConfirmationModal();
+    }
+
+    addClick() {
+        this._materialService.addData(new JsonObjectPipe().transform(this.data));
+        this.modal.hideConfirmationModal();
     }
 
 }
