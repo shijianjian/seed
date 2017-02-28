@@ -7,8 +7,8 @@ import 'rxjs';
 @Injectable()
 export class NavService{
 
-    // private baseUrl = "https://jian-shi-spring-music.run.aws-usw02-pr.ice.predix.io";
-    private baseUrl = "http://localhost:8080";
+    private baseUrl = "https://jian-shi-spring-music.run.aws-usw02-pr.ice.predix.io";
+    // private baseUrl = "http://localhost:8080";
 
     constructor(private _http: Http) {}
 
