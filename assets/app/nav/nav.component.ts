@@ -1,5 +1,5 @@
 import { Component, Output, Input, ViewChild } from '@angular/core';
-import { ConfirmationModalComponent } from "../common/confirmationModal.component";
+import { ModalComponent } from "../common/modal.component";
 import { NavService } from './nav.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { NavService } from './nav.service';
 
 export class NavComponent {
 
-    @ViewChild('modal') modal: ConfirmationModalComponent;
+    @ViewChild('modal') modal: ModalComponent;
     @ViewChild('myInput') fileInput;
     @Input() appName= "";
     @Output() fileChange;
@@ -33,8 +33,9 @@ export class NavComponent {
             this.modal.showConfirmationModal();
         }
 
-    onConfirm(e) {
-        this._navService.uploadFile(e.data);
+    onConfirm() {
+        this._navService.uploadFile(this.data);
         this.fileInput.nativeElement.value = "";
+        this.modal.hideConfirmationModal();
     }
 }

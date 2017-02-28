@@ -21,11 +21,11 @@ module.exports = {
             },
             {
                 test: /\.html$/,
-                loader: 'html'
+                loader: 'html-loader'
             },
             {
                 test: /\.css$/,
-                loader: 'raw'
+                loader: 'raw-loader'
             }
         ]
     },
@@ -35,6 +35,7 @@ module.exports = {
             // The (\\|\/) piece accounts for path separators in *nix and Windows
             /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
             './src' // location of your src
-        )
+        ),
+	new webpack.optimize.UglifyJsPlugin()
     ]
 };

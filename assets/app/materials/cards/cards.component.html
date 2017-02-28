@@ -3,8 +3,7 @@
                 *ngFor="let item of data"
                 class="col-sm-12 col-md-6 col-lg-4"
                 style="padding: 10px; "
-                [data]="item | keys" 
-                [action]="action">
+                [data]="item | keys">
         </my-card>
         <div (click)="showDataRendererModal()" class="col-sm-12 col-md-6 col-lg-4" style="padding: 10px; cursor: pointer;">
                 <div style="
@@ -24,10 +23,11 @@
         </div>
 </div>
 
-
-<my-data-renderer-modal 
-        #modal
-        [title]="modalTitle"
-        [data]="columns" 
-        [action]="actionEnum.CREATE"
-        [container]="contentEnum.FORM"></my-data-renderer-modal>
+<my-modal [title]="title" #modal>
+        <my-form-list
+                style="padding: 10px;"
+                [data]="columns"
+                [button]="'Add'"
+                (submit)="onAdd($event)"
+        ></my-form-list>
+</my-modal>

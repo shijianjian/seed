@@ -1,4 +1,4 @@
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -7,8 +7,8 @@ import 'rxjs';
 @Injectable()
 export class MaterialService{
 
-    // private baseUrl = "https://jian-shi-spring-music.run.aws-usw02-pr.ice.predix.io";
-    private baseUrl = "http://localhost:8080";
+    private baseUrl = "https://jian-shi-spring-music.run.aws-usw02-pr.ice.predix.io";
+    // private baseUrl = "http://localhost:8080";
 
     constructor(private _http: Http){ 
         this.getColumns();
@@ -72,20 +72,27 @@ export class MaterialService{
     }
 
     createMaterial(material){
-        this._http.post(this.baseUrl + "/albums/album", material)
-                    .map(res =>  res.json())
-                    .subscribe(data => {
-                        this.addData(data);
-                        this.data.next(this._data);
-                    });
+        let body = JSON.stringify(material);
+        if(typeof body != 'undefined') {
+            this._http.post(this.baseUrl + "/albums/album", body)
+                        .map(res =>  res.json())
+                        .subscribe(data => {
+                            console.log(data)
+                            this.addData(data);
+                            this.data.next(this._data);
+                        });
+        }
     }
 
     updateMaterial(material) {
-        this._http.put(this.baseUrl + "/albums/album", material)
-                    .map(res => res.json())
-                    .subscribe(data => {
-                        this.updateData(data);
-                    });
+        let body = JSON.stringify(material);
+        if(typeof body != 'undefined') {
+            this._http.put(this.baseUrl + "/albums/album", body)
+                        .map(res => res.json())
+                        .subscribe(data => {
+                            this.updateData(data);
+                        });
+        }
     }
 
     deleteMaterial(id) {
@@ -117,7 +124,6 @@ export class MaterialService{
         if(this.checkDataExists(obj.id)) {
             this._data.splice(this.findDataIndex(obj.id), 1);
             this._data.push(obj);
-            console.log(obj)
             this.data.next(this._data);
         }
     }

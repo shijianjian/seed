@@ -1,10 +1,9 @@
-import { Component, Input, Output, ViewChild, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, ViewChild, EventEmitter, OnInit } from '@angular/core';
 import { MaterialService } from '../materials.service';
-import { ContentEnum, ContentEnumDecorator, ActionEnum, ActionEnumDecorator } from '../enums';
 import { DragulaService } from 'ng2-dragula';
 
-import { DataRendererModalComponent } from '../dataRendererModal/data-renderer.component';
-
+import { ModalComponent } from '../../common/modal.component';
+import { JsonObjectPipe } from '../../common/json-object.pipe';
 
 @Component({
     selector: 'my-cards',
@@ -12,23 +11,17 @@ import { DataRendererModalComponent } from '../dataRendererModal/data-renderer.c
     providers: [DragulaService]
 })
 
-@ActionEnumDecorator
-@ContentEnumDecorator
 export class CardsComponent implements OnInit {
     @Input() data;
-    @Input() action;
 
-    @ViewChild('modal') modal : DataRendererModalComponent;
-
-    contentEnum: any = ContentEnum;
-    actionEnum: any = ActionEnum;
+    @ViewChild('modal') modal : ModalComponent;
 
     constructor(
         private _materialService: MaterialService,
         private _dragulaService: DragulaService
     ) { 
         _dragulaService.dropModel.subscribe(value => {
-            console.log(value)
+            // console.log(value)
         });
     }
 
@@ -36,12 +29,16 @@ export class CardsComponent implements OnInit {
         this._materialService.columns.subscribe(res => this.columns = res);
     }
 
-    modalTitle = "Add New Data";
-    buttonName = "+";
+    title = "Add New Data";
     columns;
 
     showDataRendererModal(){
-        this.modal.showDataRendererModal();
+        this.modal.showConfirmationModal();
+    }
+
+    onAdd(e) {
+        this._materialService.createMaterial(e.data);
+        this.modal.hideConfirmationModal();
     }
 
 }

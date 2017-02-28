@@ -3,14 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 // util imports
 import { KeyValuePipe } from './key-value.pipe';
 import { JsonObjectPipe } from './json-object.pipe';
-import { ConfirmationModalComponent } from './confirmationModal.component';
 import { ModalModule } from 'ng2-bootstrap';
+import { ModalComponent } from './modal.component';
 
 @NgModule({
     declarations: [
         KeyValuePipe,
         JsonObjectPipe,
-        ConfirmationModalComponent
+        ModalComponent
     ],
     imports: [
         BrowserModule,
@@ -19,7 +19,7 @@ import { ModalModule } from 'ng2-bootstrap';
     exports: [
         KeyValuePipe,
         JsonObjectPipe,
-        ConfirmationModalComponent
+        ModalComponent
     ]
 })
 export class CommonModule {

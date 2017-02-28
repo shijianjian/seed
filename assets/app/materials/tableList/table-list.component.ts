@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 import { MaterialService } from '../materials.service';
 
@@ -14,7 +14,7 @@ import { MaterialService } from '../materials.service';
     `
 })
 
-export class TableListComponent implements OnInit, OnChanges {
+export class TableListComponent implements  OnChanges {
     @Input() item;
 
     dataView = [];
@@ -22,10 +22,6 @@ export class TableListComponent implements OnInit, OnChanges {
     constructor(
         private _materialService : MaterialService
     ) {}
-
-    ngOnInit() {
-        // this._materialService.dataView.subscribe(res => this.dataView = res);
-    }
 
     ngOnChanges() {
         this._materialService.dataView.subscribe(res => {
@@ -35,8 +31,6 @@ export class TableListComponent implements OnInit, OnChanges {
                 for(let d in res) {
                     views.push(res[d]);
                 }
-                console.log(views);
-                // console.log(this.item);
                 for(var i=0; i<views.length; i++) {
                     // search the valid item
                     if(views[i].value == true) {
@@ -46,7 +40,6 @@ export class TableListComponent implements OnInit, OnChanges {
                         }
                     }
                 }
-                // console.log(this.dataView);
             }
         });
     }

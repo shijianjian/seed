@@ -1,10 +1,7 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 
 import { MaterialService } from './materials.service';
-import { ContentEnum, ContentEnumDecorator, ActionEnum, ActionEnumDecorator } from './enums';
-
-import { DataRendererModalComponent } from './dataRendererModal/data-renderer.component';
-import { DragListComponent } from './dragList/drag-list.component'
+import { ModalComponent } from '../common/modal.component'
 
 @Component({
     selector: 'my-materials',
@@ -14,19 +11,11 @@ import { DragListComponent } from './dragList/drag-list.component'
     ]
 })
 
-@ActionEnumDecorator
-// @ContentEnumDecorator
 export class MaterialsComponent implements OnInit, OnDestroy {
 
-    // modalTitle = "Add New Data";
-    // buttonName = "+";
     data;
 
-    @ViewChild('modal') public modal: DataRendererModalComponent;
-    @ViewChild('draglist') public draglist: DragListComponent;
-
-    // contentEnum: any = ContentEnum;
-    actionEnum: any = ActionEnum;
+    @ViewChild('draglist') public draglist: ModalComponent;
 
     constructor(
         private _materialService: MaterialService
@@ -42,5 +31,10 @@ export class MaterialsComponent implements OnInit, OnDestroy {
 
     showDataRendererModal(){
         this.draglist.showConfirmationModal();
+    }
+
+    onConfirm(e) {
+        if(e.clicked == true)
+            this.draglist.hideConfirmationModal();
     }
 }

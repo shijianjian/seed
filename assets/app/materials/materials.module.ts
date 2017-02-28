@@ -14,7 +14,6 @@ import { SearchBoxDropdownComponent } from "./searchBox/search-box-dropdown.comp
 import { SearchBoxDropdownItemComponent } from "./searchBox/search-box-dropdown-item.component";
 import { CardsComponent } from "./cards/cards.component";
 import { CardComponent } from "./cards/card.component";
-import { DataRendererModalComponent } from './dataRendererModal/data-renderer.component';
 import { FormListComponent } from './formList/form-list.component';
 import { FormItemComponent } from './formList/form-item.component';
 import { TableListComponent } from './tableList/table-list.component';
@@ -25,7 +24,6 @@ import { DragListComponent } from './dragList/drag-list.component'
 @NgModule({
   declarations: [
     SearchBoxComponent,
-    DataRendererModalComponent,
     FormListComponent,
     FormItemComponent,
     TableListComponent,

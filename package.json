@@ -4,20 +4,20 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "build": "del-cli public/js/app && webpack --config webpack.config.dev.js --progress --profile --watch",
-    "build:prod": "del-cli public/js/app && ngc -p tsconfig.aot.json && ngc -p tsconfig.aot.json && webpack --config webpack.config.prod.js --progress --profile --bail && del-cli 'public/js/app/**/*.js' 'public/js/app/**/*.js.map' '!public/js/app/bundle.js' '!public/js/app/*.chunk.js' 'assets/app/**/*.ngfactory.ts' 'assets/app/**/*.shim.ts'"
+    "build": "rimraf public/js/app && webpack --config webpack.config.dev.js --progress --profile --watch",
+    "build:prod": "rimraf public/js/app && ngc -p tsconfig.aot.json && ngc -p tsconfig.aot.json && webpack --config webpack.config.prod.js --progress --profile --bail && rimraf 'public/js/app/**/*.js' 'public/js/app/**/*.js.map' '!public/js/app/bundle.js' '!public/js/app/*.chunk.js' 'assets/app/**/*.ngfactory.ts' 'assets/app/**/*.shim.ts'"
   },
   "dependencies": {
-    "@angular/common": "^2.4.3",
-    "@angular/compiler": "^2.4.3",
-    "@angular/compiler-cli": "^2.4.3",
-    "@angular/core": "^2.4.3",
-    "@angular/forms": "^2.4.3",
-    "@angular/http": "^2.4.3",
+    "@angular/common": "2.4.3",
+    "@angular/compiler": "2.4.3",
+    "@angular/compiler-cli": "2.4.3",
+    "@angular/core": "2.4.3",
+    "@angular/forms": "2.4.3",
+    "@angular/http": "2.4.3",
     "@angular/platform-browser": "2.4.3",
-    "@angular/platform-browser-dynamic": "^2.4.3",
-    "@angular/platform-server": "^2.4.3",
-    "@angular/router": "^3.4.3",
+    "@angular/platform-browser-dynamic": "2.4.3",
+    "@angular/platform-server": "2.4.3",
+    "@angular/router": "3.4.3",
     "@angular/upgrade": "2.4.3",
     "@ngrx/core": "^1.2.0",
     "@ngrx/store": "^2.2.1",
@@ -47,13 +47,13 @@
     "angular2-template-loader": "^0.5.0",
     "awesome-typescript-loader": "^2.2.4",
     "copy-webpack-plugin": "^4.0.1",
-    "del-cli": "^0.2.0",
     "file-loader": "^0.10.0",
     "html-loader": "^0.4.4",
     "raw-loader": "^0.5.1",
+    "rimraf": "^2.6.1",
     "typescript": "2.0.3",
     "url-loader": "^0.5.7",
-    "webpack": "2.1.0-beta.21",
+    "webpack": "^2.2.1",
     "webpack-merge": "^0.14.1"
   }
 }
