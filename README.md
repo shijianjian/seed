@@ -7,5 +7,5 @@
 
 ---
 ### URL location: 
-  - nav.service.ts
-  - materials.service.ts
+  - assets/app/materials/materials.service.ts
+  - assets/app/nav/nav.service.ts
