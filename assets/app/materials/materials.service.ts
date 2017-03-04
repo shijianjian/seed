@@ -7,7 +7,7 @@ import 'rxjs';
 @Injectable()
 export class MaterialService{
 
-    private baseUrl = "https://jian-shi-spring-music.run.aws-usw02-pr.ice.predix.io";
+    private baseUrl = "https://my-music-service.run.aws-usw02-pr.ice.predix.io";
     // private baseUrl = "http://localhost:8080";
 
     constructor(private _http: Http){ 
