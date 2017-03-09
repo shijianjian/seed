@@ -6,7 +6,7 @@ import { MaterialService } from '../materials.service';
     selector: 'my-table-list',
     template: `
             <table class="table table-hover col-sm-12" width="100%">
-                <tr class="" *ngFor="let line of dataView" width="100%">
+                <tr *ngFor="let line of dataView" width="100%">
                     <td *ngIf="line.key != 'id'" width="35%">{{line.key | uppercase}}:</td> 
                     <td *ngIf="line.key != 'id'" width="65%">{{line.value}}</td>
                 </tr>
@@ -35,7 +35,7 @@ export class TableListComponent implements  OnChanges {
                     // search the valid item
                     if(views[i].value == true) {
                         for(var j=0; j<this.item.length; j++){
-                            if(this.item[j].key == views[i].key)
+                            if(this.item[j].key.toLowerCase() == views[i].key.toLowerCase())
                                 this.dataView.push(this.item[j]);
                         }
                     }

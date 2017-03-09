@@ -42,6 +42,7 @@ export class SearchBoxDropdownItemComponent {
     }
 
     addClick() {
+        console.log(this.data);
         this._materialService.addData(new JsonObjectPipe().transform(this.data));
         this.modal.hideConfirmationModal();
     }
