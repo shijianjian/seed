@@ -3,7 +3,7 @@ import { FormGroup }        from '@angular/forms';
 
 @Component({
   selector: 'my-form-item',
-  templateUrl: './form-item.component.html'
+  templateUrl: 'form-item.component.html'
 })
 
 export class FormItemComponent {

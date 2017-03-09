@@ -1,18 +1,7 @@
-<div class="row" style="padding-top: 65px !important; padding: 20px;">
-        <my-search-box class="col-xs-10 col-sm-11">waiting...</my-search-box>
-        <div class="col-xs-2 col-sm-1">
-                <button 
-                        type="button" 
-                        class="btn btn-primary" 
-                        (click)="showDataRendererModal()">
-                        <i class="fa fa-cog" aria-hidden="true"></i>
-                </button>
-
-        </div>
-
+<div style="display: flex; height: 100%; min-height: 100vh;">
+        <my-tool-box style="flex-grow: 0;"></my-tool-box>
+        <my-cards style="flex-grow: 1;padding: 15px;" [data]="data"></my-cards>
 </div>
-
-<my-cards class="col-xs-12" [data]="data"></my-cards>
 
 <my-modal [title]="'Data Filter'" #draglist>
         <my-drag-list 

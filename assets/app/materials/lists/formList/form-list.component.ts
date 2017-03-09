@@ -2,11 +2,11 @@ import { Component, Input, Output, OnChanges, EventEmitter} from '@angular/core'
 import { FormGroup } from '@angular/forms';
 
 import { FormItemControlService } from './form-item-control.service';
-import { MaterialService } from '../materials.service';
+import { MaterialService } from '../../materials.service';
 
 @Component({
     selector: 'my-form-list',
-    templateUrl: './form-list.component.html',
+    templateUrl: 'form-list.component.html',
     providers: [ FormItemControlService ]
 })
 

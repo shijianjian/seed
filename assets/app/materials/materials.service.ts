@@ -66,7 +66,7 @@ export class MaterialService{
     updateDataView() {
         // TODO: grab this from the server backend.
         this.columns.subscribe(res => {
-            for(var i=0; i<res.length; i++) {
+            for(let i=0; i<res.length; i++) {
                 this._dataView.push({key: res[i] , value: true});
             }
             this.dataView.next(this._dataView);
@@ -116,7 +116,7 @@ export class MaterialService{
 
     deleteData(obj) {
         if(this.checkDataExists(obj.id)) {
-            var i = this.findDataIndex(obj.id);
+            let i = this.findDataIndex(obj.id);
             this._data.splice(i,1);
         }
         this.data.next(this._data);
@@ -131,7 +131,7 @@ export class MaterialService{
     }
 
     private checkDataExists(id) {
-        for(var i=0; i<this._data.length; i++){
+        for(let i=0; i<this._data.length; i++){
             if(id == this._data[i].id){
                 return true;
             }
@@ -140,7 +140,7 @@ export class MaterialService{
     }
 
     private findDataIndex(id) {
-        for(var i=0; i<this._data.length; i++){
+        for(let i=0; i<this._data.length; i++){
             if(id == this._data[i].id){
                 return i;
             }

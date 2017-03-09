@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 
-import { MaterialService } from '../materials.service';
+import { MaterialService } from '../../materials.service';
 
 @Component({
     selector: 'my-table-list',

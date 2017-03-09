@@ -1,0 +1,37 @@
+<div class="bg-inverse tool-box" style="min-width: 80px; width: 100%; padding-top: 15px; padding-bottom: 15px; display:flex;">
+    <div style="flex-grow: 0;">
+        <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="#"
+                   [class.active]="index == 'search'"
+                   (click)="onSearch()">
+                    <i class="fa fa-search fa-lg" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="#"
+                   [class.active]="index == 'upload'"
+                   (click)="onUpload()">
+                    <i class="fa fa-upload fa-lg" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="#"
+                   [class.active]="index == 'adding'"
+                   (click)="onAdding()">
+                    <i class="fa fa-plus-square-o fa-lg" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div [ngSwitch]="index" style="flex-grow: 1; padding: 20px;">
+        <div *ngSwitchCase="'search'">
+            <my-search-box></my-search-box>
+        </div>
+        <div *ngSwitchCase="'upload'">I am Odd.</div>
+        <div *ngSwitchCase="'adding'">I am nothing.</div>
+    </div>
+</div>

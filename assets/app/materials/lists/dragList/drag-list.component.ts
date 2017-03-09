@@ -3,7 +3,7 @@ import { Component, Input, Output,EventEmitter, OnInit, OnDestroy } from '@angul
 import { DragulaService } from 'ng2-dragula';
 import { ModalDirective } from 'ng2-bootstrap';
 
-import { MaterialService } from '../materials.service'
+import { MaterialService } from '../../materials.service'
 
 @Component({
     selector: 'my-drag-list',

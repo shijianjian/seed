@@ -13,13 +13,11 @@ export class NavComponent {
     @ViewChild('modal') modal: ModalComponent;
     @ViewChild('myInput') fileInput;
     @Input() appName= "";
-    @Output() fileChange;
 
     file: File;
     briefing;
     data;
     title="Upload file";
-    buttonName = "Yes"
 
     constructor(private _navService: NavService) {}
 
