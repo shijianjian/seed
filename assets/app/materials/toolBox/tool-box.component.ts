@@ -19,15 +19,15 @@ export class ToolBoxComponent {
 
     index;
 
-    onSearch() {
+    onSearch() : void {
         this.index = 'search';
     }
 
-    onUpload() {
+    onUpload() : void {
         this.index = 'upload';
     }
 
-    onAdding() {
+    onAdding() : void {
         this.index = 'adding';
     }
 }

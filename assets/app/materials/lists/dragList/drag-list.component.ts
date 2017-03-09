@@ -1,7 +1,6 @@
 import { Component, Input, Output,EventEmitter, OnInit, OnDestroy } from '@angular/core';
 
 import { DragulaService } from 'ng2-dragula';
-import { ModalDirective } from 'ng2-bootstrap';
 
 import { MaterialService } from '../../materials.service'
 
@@ -37,7 +36,7 @@ export class DragListComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this._materialService.dataView.subscribe(res => {
             this.dataView = res;
-            for(var i=0; i<this.dataView.length; i++) {
+            for(let i=0; i<this.dataView.length; i++) {
                 if(this.dataView[i].key == "id"){
                     this.dataView.splice(i,1);
                 }
@@ -50,11 +49,11 @@ export class DragListComponent implements OnInit, OnDestroy {
     }
 
     public onclick(item): void {
-        var index = this.dataView.indexOf(item);
+        let index = this.dataView.indexOf(item);
         this.dataView[index].value = !this.dataView[index].value;
     }
 
-    confirm() {
+    confirm() : void {
         this._materialService.dataView.next(this.dataView);
         this.onConfirm.emit({clicked: true});
     }

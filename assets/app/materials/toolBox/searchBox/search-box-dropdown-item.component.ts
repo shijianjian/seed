@@ -36,12 +36,13 @@ export class SearchBoxDropdownItemComponent {
         private _materialService: MaterialService
     ){}
 
-    onClick(data) {
+    onClick(data) : void {
         this.data = data;
         this.modal.showConfirmationModal();
     }
 
-    addClick() {
+    addClick() : void {
+        console.log(this.data);
         this._materialService.addData(new JsonObjectPipe().transform(this.data));
         this.modal.hideConfirmationModal();
     }

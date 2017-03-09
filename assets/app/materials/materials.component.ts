@@ -29,11 +29,11 @@ export class MaterialsComponent implements OnInit, OnDestroy {
         this._materialService.data.unsubscribe();
     }
 
-    showDataRendererModal(){
+    showDataRendererModal() : void {
         this.draglist.showConfirmationModal();
     }
 
-    onConfirm(e) {
+    onConfirm(e) : void {
         if(e.clicked == true)
             this.draglist.hideConfirmationModal();
     }

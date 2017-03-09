@@ -31,7 +31,7 @@ export class NavComponent {
             this.modal.showConfirmationModal();
         }
 
-    onConfirm() {
+    onConfirm() : void {
         this._navService.uploadFile(this.data);
         this.fileInput.nativeElement.value = "";
         this.modal.hideConfirmationModal();

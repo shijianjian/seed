@@ -48,7 +48,7 @@ export class SearchBoxComponent implements OnInit {
                 });
     }
 
-    onFocus() {
+    onFocus() : void {
         this._materialService.getDataByName(this.targetSearch);
     }
 
