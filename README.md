@@ -7,5 +7,4 @@
 
 ---
 ### URL location: 
-  - assets/app/materials/materials.service.ts
-  - assets/app/nav/nav.service.ts
+  - git/seed/assets/app/config.ts
