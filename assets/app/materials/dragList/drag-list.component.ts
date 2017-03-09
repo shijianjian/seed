@@ -10,7 +10,6 @@ import { MaterialService } from '../materials.service'
     template: `
             <div [dragula]='"list-bag"' [dragulaModel]='dataView'>
                 <ul class="list-group" *ngFor="let item of dataView">
-                    {{items | json}}
                     <li 
                         class="list-group-item" 
                         [ngStyle]="{backgroundColor: item.value ? 'white' : 'gray'}" 

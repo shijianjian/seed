@@ -6,6 +6,8 @@ import { NavModule } from './nav/nav.module';
 
 import { AppComponent } from "./app.component";
 
+import "./config";
+
 @NgModule({
     declarations: [
         AppComponent

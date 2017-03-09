@@ -5,10 +5,10 @@ import { MaterialService } from '../materials.service';
 @Component({
     selector: 'my-table-list',
     template: `
-            <table class="table table-hover col-sm-12">
-                <tr class="" *ngFor="let line of dataView">
-                    <td *ngIf="line.key != 'id'">{{line.key | uppercase}}:</td> 
-                    <td *ngIf="line.key != 'id'">{{line.value}}</td>
+            <table class="table table-hover col-sm-12" width="100%">
+                <tr class="" *ngFor="let line of dataView" width="100%">
+                    <td *ngIf="line.key != 'id'" width="35%">{{line.key | uppercase}}:</td> 
+                    <td *ngIf="line.key != 'id'" width="65%">{{line.value}}</td>
                 </tr>
             </table>
     `

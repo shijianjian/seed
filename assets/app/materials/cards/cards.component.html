@@ -1,5 +1,5 @@
 <div [dragula]='"nested-bag"' class="row">
-        <my-card 
+        <my-card
                 *ngFor="let item of data"
                 class="col-sm-12 col-md-6 col-lg-4"
                 style="padding: 10px; "
@@ -7,8 +7,8 @@
         </my-card>
         <div (click)="showDataRendererModal()" class="col-sm-12 col-md-6 col-lg-4" style="padding: 10px; cursor: pointer;">
                 <div style="
-                        border: 5px dotted lightgray; 
-                        border-radius: 20px; 
+                        border: 5px dotted lightgray;
+                        border-radius: 20px;
                         height: 40vh;">
                         <div style="
                                 font-size: 8vh;
@@ -16,7 +16,7 @@
                                 font-weight: bold;
                                 line-height: 32vh;
                                 display: flex;
-                                justify-content: center; 
+                                justify-content: center;
                                 align-self: center;"
                         >+</div>
                 </div>
@@ -26,7 +26,7 @@
 <my-modal [title]="title" #modal>
         <my-form-list
                 style="padding: 10px;"
-                [data]="columns"
+                [data]="columns | arrayToJson"
                 [button]="'Add'"
                 (submit)="onAdd($event)"
         ></my-form-list>

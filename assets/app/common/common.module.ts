@@ -5,12 +5,14 @@ import { KeyValuePipe } from './key-value.pipe';
 import { JsonObjectPipe } from './json-object.pipe';
 import { ModalModule } from 'ng2-bootstrap';
 import { ModalComponent } from './modal.component';
+import { ArrayJsonPipe } from './array-json.pipe';
 
 @NgModule({
     declarations: [
         KeyValuePipe,
         JsonObjectPipe,
-        ModalComponent
+        ModalComponent,
+        ArrayJsonPipe
     ],
     imports: [
         BrowserModule,
@@ -19,7 +21,8 @@ import { ModalComponent } from './modal.component';
     exports: [
         KeyValuePipe,
         JsonObjectPipe,
-        ModalComponent
+        ModalComponent,
+        ArrayJsonPipe
     ]
 })
 export class CommonModule {
