@@ -28,7 +28,7 @@ export class FormListComponent implements OnChanges {
 
     onSubmit() : void {
         let payLoad = this.materialsForm.value;
-        this.submit.emit({data: payLoad});
+        this.submit.emit({data: payLoad, submitted: true});
         // clear the form
         this.materialsForm.reset();
     }

@@ -60,7 +60,7 @@ export class SearchBoxComponent implements OnInit, AfterViewInit {
 
     onBlur() : void {
         if(this.targetSearch == "") {
-            this.useless.emit({useless: true});
+            this.useless.emit({clicked: true});
         }
     }
 

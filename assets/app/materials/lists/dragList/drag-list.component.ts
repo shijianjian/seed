@@ -1,4 +1,4 @@
-import { Component, Input, Output,EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, Output,EventEmitter, OnInit } from '@angular/core';
 
 import { DragulaService } from 'ng2-dragula';
 
@@ -21,7 +21,7 @@ import { MaterialService } from '../../materials.service'
     `,
     providers: [DragulaService]
 })
-export class DragListComponent implements OnInit, OnDestroy {
+export class DragListComponent implements OnInit {
 
     @Output() onConfirm = new EventEmitter();
     @Input() button = "Click me";
@@ -42,10 +42,6 @@ export class DragListComponent implements OnInit, OnDestroy {
                 }
             }
         });
-    }
-
-    ngOnDestroy() {
-        this._materialService.dataView.unsubscribe();
     }
 
     public onclick(item): void {

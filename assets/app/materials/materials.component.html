@@ -2,16 +2,3 @@
         <my-tool-box style="flex-grow: 0;"></my-tool-box>
         <my-cards style="flex-grow: 1;padding: 15px;" [data]="data"></my-cards>
 </div>
-
-<my-modal [title]="'Data Filter'" #draglist>
-        <my-drag-list 
-                class="modal-body"
-                [button]="'Confirm'"
-                (onConfirm)="onConfirm($event)"></my-drag-list>
-</my-modal>
-
-
-
-
-
-

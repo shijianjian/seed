@@ -6,20 +6,26 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { TooltipModule } from 'ng2-bootstrap/tooltip';
 import { CommonModule } from '../../common/common.module';
+import { ListModule } from '../lists/list.module';
 
 import { ToolBoxComponent } from './tool-box.component';
 import { SearchBoxModule } from './searchBox/search-box.module';
 import { UploadComponent } from './upload/upload.component';
+import { AddNewComponent } from './addNew/add-new.component';
+import { ConfigComponent } from './config/config.component';
 
 @NgModule({
     declarations: [
         ToolBoxComponent,
-        UploadComponent
+        UploadComponent,
+        AddNewComponent,
+        ConfigComponent
     ],
     imports: [
         BrowserModule,
         SearchBoxModule,
         CommonModule,
+        ListModule,
         TooltipModule.forRoot()
     ],
     exports: [

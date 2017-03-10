@@ -1,6 +1,6 @@
-<div *ngIf="item.key!='id'" class="form-group row" [formGroup]="form">
-        <label for="item.key" class="col-md-3 col-form-label">{{ item.key | uppercase }} :</label>
-        <div class="col-md-9">
+<div *ngIf="item.key!='id'" class="form-group row" style="display: flex; justify-content: space-between;" [formGroup]="form">
+        <label for="item.key" class="col-form-label" style="flex-grow: 0;" >{{ item.key | uppercase }} :</label>
+        <div style="flex-grow: 0;">
             <input 
                 [formControlName]="item.key" 
                 [formGroup]="form"

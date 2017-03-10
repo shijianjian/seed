@@ -38,7 +38,8 @@ export class ToolBoxComponent {
 
     // close the search sidebar
     onUseless(e) : void {
-        this.index = '';
+        if(e.clicked == true)
+            this.index = '';
     }
 
 }

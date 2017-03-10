@@ -2,7 +2,7 @@
     <div *ngFor="let item of data | keys" class="form-row">
         <my-form-item [data]="item" [form]="materialsForm"></my-form-item>
     </div>
-    <div class="form-row">
+    <div class="form-row pull-right">
         <button 
             [disabled]="materialsForm.pristine"
             type="submit"

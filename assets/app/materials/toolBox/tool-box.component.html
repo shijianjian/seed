@@ -49,10 +49,18 @@
                 (useless) = "onUseless($event)"
                 ></my-search-box>
         </div>
-        <div *ngSwitchCase="'upload'" style="padding: 20px;min-width: 400px;color: aliceblue;;">
+        <div *ngSwitchCase="'upload'" style="padding: 20px;min-width: 400px;color: aliceblue;">
             <my-upload></my-upload>
         </div>
-        <div *ngSwitchCase="'adding'" style="padding: 20px;"></div>
-        <div *ngSwitchCase="'config'" style="padding: 20px;"></div>
+        <div *ngSwitchCase="'adding'" style="padding: 20px;padding-right: 30px;min-width: 400px;color: aliceblue;">
+            <my-add-new
+                (useless)="onUseless($event)"
+                ></my-add-new>
+        </div>
+        <div *ngSwitchCase="'config'" style="padding: 20px;min-width: 400px; color: aliceblue;">
+            <my-config
+                (useless)="onUseless($event)"
+                ></my-config>
+        </div>
     </div>
 </div>
