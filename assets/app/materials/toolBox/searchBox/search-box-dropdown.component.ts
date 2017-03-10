@@ -21,7 +21,7 @@ export class SearchBoxDropdownComponent implements OnInit {
     constructor(private _materialService: MaterialService){ }
 
     ngOnInit(){
-        this._materialService.search.subscribe(res => {this.data = res; console.log(res)});
+        this._materialService.search.subscribe(res => {this.data = res;});
     }
 
 }

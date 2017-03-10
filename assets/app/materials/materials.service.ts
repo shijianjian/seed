@@ -63,6 +63,17 @@ export class MaterialService{
         
     }
 
+    uploadFile(file): void {
+        let formData:FormData = new FormData();
+        formData.append('file', file, file.name);
+        this._http.post(this.baseUrl + "/uploadFile", formData)
+            .subscribe(data => console.log(data));
+        // update columns and data view.
+        this.getColumns();
+        this.updateDataView();
+
+    }
+
     updateDataView() {
         // TODO: grab this from the server backend.
         this.columns.subscribe(res => {

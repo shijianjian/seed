@@ -19,15 +19,26 @@ export class ToolBoxComponent {
 
     index;
 
-    onSearch() : void {
-        this.index = 'search';
+    onClick(option) : void {
+        this.index = option;
     }
 
     onUpload() : void {
-        this.index = 'upload';
+        console.log('uploading')
     }
 
     onAdding() : void {
-        this.index = 'adding';
+        console.log('uploading')
     }
+
+    onConfig() : void {
+        console.log('configuring')
+    }
+
+
+    // close the search sidebar
+    onUseless(e) : void {
+        this.index = '';
+    }
+
 }

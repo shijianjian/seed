@@ -4,34 +4,55 @@
             <li class="nav-item">
                 <a class="nav-link"
                    href="#"
+                   tooltip="Search"
+                   container="body"
                    [class.active]="index == 'search'"
-                   (click)="onSearch()">
+                   (click)="onClick('search')">
                     <i class="fa fa-search fa-lg" aria-hidden="true"></i>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link"
                    href="#"
+                   tooltip="Upload CSV file"
+                   container="body"
                    [class.active]="index == 'upload'"
-                   (click)="onUpload()">
+                   (click)="onClick('upload'); onUpload()">
                     <i class="fa fa-upload fa-lg" aria-hidden="true"></i>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link"
                    href="#"
+                   tooltip="Add new data"
+                   container="body"
                    [class.active]="index == 'adding'"
-                   (click)="onAdding()">
-                    <i class="fa fa-plus-square-o fa-lg" aria-hidden="true"></i>
+                   (click)="onClick('adding'); onAdding()">
+                    <i class="fa fa-plus fa-lg" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="#"
+                   tooltip="Select data view"
+                   container="body"
+                   [class.active]="index == 'config'"
+                   (click)="onClick('config'); onConfig()">
+                    <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
                 </a>
             </li>
         </ul>
     </div>
-    <div [ngSwitch]="index" style="flex-grow: 1; padding: 20px;">
-        <div *ngSwitchCase="'search'">
-            <my-search-box></my-search-box>
+    <div [ngSwitch]="index" style="flex-grow: 1;">
+        <div *ngSwitchCase="'search'" style="padding: 20px;">
+            <my-search-box
+                (useless) = "onUseless($event)"
+                ></my-search-box>
         </div>
-        <div *ngSwitchCase="'upload'"></div>
-        <div *ngSwitchCase="'adding'"></div>
+        <div *ngSwitchCase="'upload'" style="padding: 20px;min-width: 400px;color: aliceblue;;">
+            <my-upload></my-upload>
+        </div>
+        <div *ngSwitchCase="'adding'" style="padding: 20px;"></div>
+        <div *ngSwitchCase="'config'" style="padding: 20px;"></div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 import { MaterialService } from '../../materials.service';
@@ -12,6 +12,7 @@ import { MaterialService } from '../../materials.service';
             class="form-control"
             type="text" 
             (focus)="onFocus()"
+            (blur)="onBlur()"
             placeholder="Search...">
 
             <my-search-box-dropdown 
@@ -21,9 +22,10 @@ import { MaterialService } from '../../materials.service';
     `
 })
 
-export class SearchBoxComponent implements OnInit {
+export class SearchBoxComponent implements OnInit, AfterViewInit {
 
     @ViewChild('search') search: ElementRef;
+    @Output() useless = new EventEmitter();
 
     targetSearch = "";
     
@@ -48,8 +50,18 @@ export class SearchBoxComponent implements OnInit {
                 });
     }
 
+    ngAfterViewInit() {
+        this.search.nativeElement.focus();
+    }
+
     onFocus() : void {
         this._materialService.getDataByName(this.targetSearch);
+    }
+
+    onBlur() : void {
+        if(this.targetSearch == "") {
+            this.useless.emit({useless: true});
+        }
     }
 
 }
