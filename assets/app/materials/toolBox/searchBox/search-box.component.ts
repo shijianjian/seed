@@ -13,11 +13,13 @@ import { MaterialService } from '../../materials.service';
             type="text" 
             (focus)="onFocus()"
             (blur)="onBlur()"
+            [(ngModel)]="targetSearch"
             placeholder="Search...">
 
             <my-search-box-dropdown 
                     class="list-group"
                     [target]="targetSearch"
+                    style="max-height: 60vh; overflow-y: scroll;"
             ></my-search-box-dropdown>
     `
 })
@@ -27,9 +29,11 @@ export class SearchBoxComponent implements OnInit, AfterViewInit {
     @ViewChild('search') search: ElementRef;
     @Output() useless = new EventEmitter();
 
-    targetSearch = "";
+    targetSearch: String = "";
     
-    constructor(private _materialService: MaterialService){ }
+    constructor(
+        private _materialService: MaterialService
+    ){ }
 
     ngOnInit(){
         this._materialService.data
@@ -43,6 +47,7 @@ export class SearchBoxComponent implements OnInit, AfterViewInit {
                                     this.targetSearch = target.value;
                                     return this.targetSearch;
                                 });
+
         keyups.debounceTime(300)
                 .distinctUntilChanged()
                 .subscribe(searchTerm => {

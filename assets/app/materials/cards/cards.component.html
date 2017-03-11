@@ -1,4 +1,13 @@
 <div [dragula]='"nested-bag"' class="row">
+        <div class="card" *ngIf="newData.length>0" style="padding: 10px; min-width: 400px;">
+                <div class="card-body">
+                        <h5 class="card-title">
+                                Add New Data
+                        </h5>
+                        <my-table-list class="card-text" [item]="newData"></my-table-list>
+                        <button class="btn btn-primary pull-right" type="button" (click)="addClick()">Add</button>
+                </div>
+        </div>
         <my-card
                 *ngFor="let item of data"
                 style="padding: 10px; min-width: 400px;"

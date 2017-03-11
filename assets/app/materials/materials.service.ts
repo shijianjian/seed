@@ -1,6 +1,5 @@
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs';
 
@@ -57,10 +56,8 @@ export class MaterialService{
                     .subscribe(data => {
                         this._columns = data;
                         this.updateDataView();
-                        console.log(data)
                         this.columns.next(this._columns);
                     });
-        
     }
 
     uploadFile(file): void {
@@ -71,7 +68,6 @@ export class MaterialService{
         // update columns and data view.
         this.getColumns();
         this.updateDataView();
-
     }
 
     updateDataView() {
@@ -90,7 +86,6 @@ export class MaterialService{
             this._http.post(this.baseUrl + "/material", body)
                         .map(res =>  res.json())
                         .subscribe(data => {
-                            console.log(data)
                             this.addData(data);
                             this.data.next(this._data);
                         });

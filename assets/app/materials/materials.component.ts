@@ -1,21 +1,20 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { MaterialService } from './materials.service';
-import { ModalComponent } from '../common/modal.component'
+import { MaterialsEventService } from './materials.event.service';
 
 @Component({
     selector: 'my-materials',
     templateUrl: './materials.component.html',
     providers: [
-        MaterialService
+        MaterialService,
+        MaterialsEventService
     ]
 })
 
 export class MaterialsComponent implements OnInit, OnDestroy {
 
     data;
-
-    @ViewChild('draglist') public draglist: ModalComponent;
 
     constructor(
         private _materialService: MaterialService
@@ -27,14 +26,5 @@ export class MaterialsComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this._materialService.data.unsubscribe();
-    }
-
-    showDataRendererModal() : void {
-        this.draglist.showConfirmationModal();
-    }
-
-    onConfirm(e) : void {
-        if(e.clicked == true)
-            this.draglist.hideConfirmationModal();
     }
 }

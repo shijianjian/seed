@@ -1,8 +1,6 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import { MaterialService } from '../../materials.service';
-import { ModalComponent } from '../../../common/modal.component';
-import { JsonObjectPipe } from '../../../common/json-object.pipe';
+import { MaterialsEventService } from '../../materials.event.service';
 
 @Component({
     selector: 'my-search-box-dropdown-item',
@@ -11,14 +9,6 @@ import { JsonObjectPipe } from '../../../common/json-object.pipe';
             <div class="col-sm-5 input-group-addon my-search-list-item" *ngIf="one.value && one.value.toUpperCase().indexOf(target.toUpperCase())>-1 && target!='' && one.key.toUpperCase()!='ID'">{{one.key}}</div>
             <div class="col-sm-7 form-control my-search-list-item" *ngIf="one.value && one.value.toUpperCase().indexOf(target.toUpperCase())>-1 && target!='' && one.key.toUpperCase()!='ID'"> {{one.value}}</div>
         </a>
-        <my-modal [title]="title" #modal>
-            <div class="modal-body">
-                <my-table-list
-                    [item]="data"
-                ></my-table-list>
-                <button class="btn btn-primary" type="button" (click)="addClick()">Add</button>
-            </div>
-        </my-modal>
         `
 })
 
@@ -27,24 +17,14 @@ export class SearchBoxDropdownItemComponent {
     // reminder: target is the text typed in the searchBox
     @Input() target;
 
-    @ViewChild('modal') modal: ModalComponent;
-
-    title = "Add it to Library";
     data = [];
 
-    constructor( 
-        private _materialService: MaterialService
+    constructor(
+        private _materialEventService: MaterialsEventService
     ){}
 
     onClick(data) : void {
-        this.data = data;
-        this.modal.showConfirmationModal();
-    }
-
-    addClick() : void {
-        console.log(this.data);
-        this._materialService.addData(new JsonObjectPipe().transform(this.data));
-        this.modal.hideConfirmationModal();
+        this._materialEventService.updateData(data);
     }
 
 }

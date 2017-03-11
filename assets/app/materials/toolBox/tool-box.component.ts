@@ -1,7 +1,9 @@
 /**
  * Created by shijian on 09/03/2017.
  */
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { MaterialsEventService } from '../materials.event.service';
 
 @Component({
     selector: 'my-tool-box',
@@ -15,9 +17,15 @@ import { Component } from '@angular/core';
     `]
 })
 
-export class ToolBoxComponent {
+export class ToolBoxComponent implements OnInit{
 
     index;
+
+    constructor(private _materialEventService : MaterialsEventService) { }
+
+    ngOnInit() {
+        this._materialEventService.sidebarIndex.subscribe(index => this.index = index);
+    }
 
     onClick(option) : void {
         this.index = option;
