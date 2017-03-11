@@ -1,12 +1,13 @@
 <div [dragula]='"nested-bag"' class="row">
-        <div  *ngIf="newData.length>0" style="padding: 10px; min-width: 400px;">
-                <div class="card">
+        <div  *ngIf="newData.length>0"style="padding: 10px; min-width: 400px;">
+                <div class="card" [@addData]="state" >
                         <div class="card-body">
-                                <h5 class="card-title" style="margin-left: 15px; padding-top: 10px;">
-                                        Add New Data
-                                </h5>
+                                <div class="card-title" style="margin-left: 15px; padding: 10px; display: flex; justify-content: space-between;">
+                                        <h5>Add New Data</h5>
+                                        <button type="button" class="close" aria-label="Close" (click)="onCancel()" >&times;</button>
+                                </div>
                                 <my-table-list class="card-text" [item]="newData"></my-table-list>
-                                <button class="btn btn-primary pull-right" style="margin-right: 20px;" type="button" (click)="addClick()">Add</button>
+                                <button class="btn btn-primary pull-right" style="margin-right: 20px; margin-bottom: 10px;" type="button" (click)="addClick()">Add</button>
                         </div>
                 </div>
         </div>

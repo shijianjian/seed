@@ -5,7 +5,7 @@
                 <a class="nav-link"
                    href="#"
                    [class.active]="index == 'search'"
-                   (click)="onClick('search')">
+                   (click)="onClick('search'); onSearch();">
                     <i class="fa fa-search fa-lg" aria-hidden="true"></i>
                 </a>
             </li>
@@ -13,7 +13,7 @@
                 <a class="nav-link"
                    href="#"
                    [class.active]="index == 'upload'"
-                   (click)="onClick('upload'); onUpload()">
+                   (click)="onClick('upload'); onUpload();">
                     <i class="fa fa-upload fa-lg" aria-hidden="true"></i>
                 </a>
             </li>
@@ -21,7 +21,7 @@
                 <a class="nav-link"
                    href="#"
                    [class.active]="index == 'adding'"
-                   (click)="onClick('adding'); onAdding()">
+                   (click)="onClick('adding'); onAdding();">
                     <i class="fa fa-plus fa-lg" aria-hidden="true"></i>
                 </a>
             </li>
@@ -29,27 +29,27 @@
                 <a class="nav-link"
                    href="#"
                    [class.active]="index == 'config'"
-                   (click)="onClick('config'); onConfig()">
+                   (click)="onClick('config'); onConfig();">
                     <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
                 </a>
             </li>
         </ul>
     </div>
-    <div [ngSwitch]="index" style="flex-grow: 1;" *ngIf="index!=''">
-        <div *ngSwitchCase="'search'" style="padding: 20px; min-width: 440px;">
+    <div [ngSwitch]="index" style="flex-grow: 1;"  [@animatePanel]="'openPanel'" *ngIf="index!=''">
+        <div *ngSwitchCase="'search'" [@animatePanel]="'active'">
             <my-search-box
-                (useless) = "onUseless($event)"
+                    (useless) = "onUseless($event)"
                 ></my-search-box>
         </div>
-        <div *ngSwitchCase="'upload'" style="padding: 20px; min-width: 440px; color: aliceblue;">
+        <div *ngSwitchCase="'upload'" [@animatePanel]="'active'">
             <my-upload></my-upload>
         </div>
-        <div *ngSwitchCase="'adding'" style="padding: 20px; min-width: 440px; padding-right: 30px; color: aliceblue;">
+        <div *ngSwitchCase="'adding'" [@animatePanel]="'active'">
             <my-add-new
                 (useless)="onUseless($event)"
                 ></my-add-new>
         </div>
-        <div *ngSwitchCase="'config'" style="padding: 20px; min-width: 440px; color: aliceblue;">
+        <div *ngSwitchCase="'config'" [@animatePanel]="'active'">
             <my-config
                 (useless)="onUseless($event)"
                 ></my-config>

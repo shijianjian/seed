@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import {Component, Input, ViewChild, state, trigger, style, transition, animate} from '@angular/core';
 import { DragulaService } from 'ng2-dragula';
 
 import { ModalComponent } from '../../common/modal.component';
@@ -9,7 +9,18 @@ import { MaterialService } from '../materials.service';
 @Component({
     selector: 'my-cards',
     templateUrl: './cards.component.html',
-    providers: [DragulaService]
+    providers: [DragulaService],
+    animations: [
+        trigger('addData', [
+            state('inactive', style({
+                opacity: '0'
+            })),
+            state('active', style({
+                opacity: '1'
+            })),
+            transition('inactive => active', animate(1200))
+        ])
+    ]
 })
 
 export class CardsComponent {
@@ -18,6 +29,7 @@ export class CardsComponent {
     @ViewChild('modal') modal : ModalComponent;
 
     newData : Array<Object> = [];
+    state : string = 'inactive';
 
     constructor(
         private _dragulaService: DragulaService,
@@ -25,10 +37,24 @@ export class CardsComponent {
         private _materialsEventService: MaterialsEventService
     ) {
         _dragulaService.dropModel.subscribe(value => { });
-        _materialsEventService.data.subscribe(data => this.newData = data);
+        _materialsEventService.data.subscribe(data => {
+            this.newData = data;
+            this.onNewDataArrive(this.newData);
+        });
     }
 
-    addClick() {
+    onNewDataArrive(data) : void {
+        // TODO : animation for new card not working
+        if(data.length > 0) {
+            this.state = 'active';
+        }
+    }
+
+    onCancel() : void {
+        this.newData = [];
+    }
+
+    addClick() : void {
         this._materialService.addData(new JsonObjectPipe().transform(this.newData));
         this._materialsEventService.updateSidebarIndex("");
         this.newData = [];
