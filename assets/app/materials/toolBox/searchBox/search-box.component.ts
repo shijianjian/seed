@@ -17,9 +17,8 @@ import { MaterialService } from '../../materials.service';
             placeholder="Search...">
 
             <my-search-box-dropdown 
-                    class="list-group"
+                    class="list-group list-overflow-control"
                     [target]="targetSearch"
-                    style="max-height: 60vh; overflow-y: scroll;"
             ></my-search-box-dropdown>
     `
 })

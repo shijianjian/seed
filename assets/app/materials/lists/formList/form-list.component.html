@@ -1,5 +1,5 @@
 <form [formGroup]="materialsForm" (ngSubmit)="onSubmit()">
-    <div *ngFor="let item of data | keys" class="form-row">
+    <div *ngFor="let item of data | keys" class="form-row list-overflow-control">
         <my-form-item [data]="item" [form]="materialsForm"></my-form-item>
     </div>
     <div class="form-row pull-right">

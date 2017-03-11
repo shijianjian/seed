@@ -5,7 +5,7 @@ import { MaterialService } from '../../materials.service';
 @Component({
     selector: 'my-table-list',
     template: `
-            <table class="table table-hover col-sm-12" width="100%">
+            <table class="table table-hover col-sm-12 list-overflow-control" width="100%">
                 <tr *ngFor="let line of dataView" width="100%">
                     <td *ngIf="line.key != 'id'" width="35%">{{line.key | uppercase}}:</td> 
                     <td *ngIf="line.key != 'id'" width="65%">{{line.value}}</td>

@@ -3,9 +3,8 @@
         <a (click)="onEdit()">
           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
         </a>
-        <my-modal [title]="'Edit'" #dmodal>
+        <my-modal style="padding: 10px;" [title]="'Edit'" #dmodal>
               <my-form-list
-                  style="padding: 10px;"
                   [data]="item | objs"
                   [button]="'Save'"
                   (submit)="onSave($event)"

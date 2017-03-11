@@ -13,7 +13,7 @@ import { ModalDirective } from 'ng2-bootstrap';
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div style="padding-left: 10px; padding-right: 10px;">
+                    <div style="padding-left: 30px; padding-right: 30px;">
                         <ng-content class="modal-body"></ng-content>
                     </div>
                 </div>

@@ -8,7 +8,7 @@ import { MaterialService } from '../../materials.service'
     selector: 'my-drag-list',
     template: `
             <div [dragula]='"list-bag"' [dragulaModel]='dataView'>
-                <ul class="list-group" *ngFor="let item of dataView">
+                <ul class="list-group list-overflow-control" *ngFor="let item of dataView">
                     <li 
                         class="list-group-item" 
                         [ngStyle]="{backgroundColor: item.value ? 'white' : 'gray'}" 

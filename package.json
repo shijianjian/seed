@@ -44,7 +44,7 @@
     "@types/core-js": "^0.9.34",
     "@types/node": "^6.0.45",
     "angular2-router-loader": "^0.3.2",
-    "angular2-template-loader": "^0.5.0",
+    "angular2-template-loader": "^0.6.2",
     "awesome-typescript-loader": "^2.2.4",
     "copy-webpack-plugin": "^4.0.1",
     "file-loader": "^0.10.0",

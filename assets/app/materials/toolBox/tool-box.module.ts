@@ -4,7 +4,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { TooltipModule } from 'ng2-bootstrap/tooltip';
 import { CommonModule } from '../../common/common.module';
 import { ListModule } from '../lists/list.module';
 
@@ -25,8 +24,7 @@ import { ConfigComponent } from './config/config.component';
         BrowserModule,
         SearchBoxModule,
         CommonModule,
-        ListModule,
-        TooltipModule.forRoot()
+        ListModule
     ],
     exports: [
         ToolBoxComponent

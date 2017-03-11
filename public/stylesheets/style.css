@@ -51,3 +51,8 @@ input.ng-invalid.ng-touched {
   border-top: 0 !important;
   border-radius: 0 !important;
 }
+
+.list-overflow-control {
+  max-height: 60vh;
+  overflow-y: scroll;
+}
