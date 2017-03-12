@@ -6,7 +6,7 @@ import { MaterialService } from '../../materials.service';
     template: `
         <my-search-box-dropdown-item 
                     style="width: 100%;"
-                    *ngFor="let item of data" 
+                    *ngFor="let item of data | async" 
                     [item]="item | keys" 
                     [target]="target">
         </my-search-box-dropdown-item>
@@ -21,7 +21,7 @@ export class SearchBoxDropdownComponent implements OnInit {
     constructor(private _materialService: MaterialService){ }
 
     ngOnInit(){
-        this._materialService.search.subscribe(res => {this.data = res;});
+        this.data = this._materialService.search;
     }
 
 }

@@ -1,4 +1,4 @@
 <div style="display: flex; height: 100%; min-height: 100vh;">
         <my-tool-box style="flex-grow: 0;"></my-tool-box>
-        <my-cards style="flex-grow: 1;padding: 15px;" [data]="data"></my-cards>
+        <my-cards style="flex-grow: 1;padding: 15px;" [data]="data | async"></my-cards>
 </div>

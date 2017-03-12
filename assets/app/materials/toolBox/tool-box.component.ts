@@ -1,7 +1,7 @@
 /**
  * Created by shijian on 09/03/2017.
  */
-import {Component, OnInit, trigger, state, style, transition, animate} from '@angular/core';
+import {Component, OnInit, OnDestroy, trigger, state, style, transition, animate} from '@angular/core';
 
 import { MaterialsEventService } from '../materials.event.service';
 
@@ -29,13 +29,13 @@ import { MaterialsEventService } from '../materials.event.service';
                 'min-width': '440px',
                 color: 'aliceblue'
             })),
-            transition('void => active', [style({opacity: '0', transform:'translateX(-20%)'}),animate(200)]),
+            transition('void => active', [style({opacity: '0', transform:'translateX(-50%)'}),animate(200)]),
             transition('void => openPanel', [style({opacity: '0', transform:'translateX(-50%)', 'width': '0'}),animate(200)])
         ])
     ]
 })
 
-export class ToolBoxComponent implements OnInit{
+export class ToolBoxComponent implements OnInit, OnDestroy {
 
     index;
 
@@ -43,6 +43,10 @@ export class ToolBoxComponent implements OnInit{
 
     ngOnInit() {
         this._materialEventService.sidebarIndex.subscribe(index => this.index = index);
+    }
+
+    ngOnDestroy() {
+        this._materialEventService.sidebarIndex.unsubscribe();
     }
 
     onClick(option) : void {

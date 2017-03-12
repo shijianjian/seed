@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild, state, trigger, style, transition, animate} from '@angular/core';
+import {Component, Input, ViewChild, OnInit, state, trigger, style, transition, animate} from '@angular/core';
 import { DragulaService } from 'ng2-dragula';
 
 import { ModalComponent } from '../../common/modal.component';
@@ -23,7 +23,7 @@ import { MaterialService } from '../materials.service';
     ]
 })
 
-export class CardsComponent {
+export class CardsComponent implements OnInit{
     @Input() data;
 
     @ViewChild('modal') modal : ModalComponent;
@@ -35,9 +35,11 @@ export class CardsComponent {
         private _dragulaService: DragulaService,
         private _materialService: MaterialService,
         private _materialsEventService: MaterialsEventService
-    ) {
-        _dragulaService.dropModel.subscribe(value => { });
-        _materialsEventService.data.subscribe(data => {
+    ) { }
+
+    ngOnInit() {
+        this._dragulaService.dropModel.subscribe(value => { });
+        this._materialsEventService.data.subscribe(data => {
             this.newData = data;
             this.onNewDataArrive(this.newData);
         });

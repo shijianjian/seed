@@ -6,7 +6,7 @@ import { MaterialService } from '../../materials.service';
     template: `
         <h5>{{ title }}</h5>
         <my-form-list
-                [data]="columns | arrayToJson"
+                [data]="columns | async | arrayToJson"
                 [button]="'Add'"
                 (submit)="onAdd($event)"
         ></my-form-list>
@@ -23,12 +23,8 @@ export class AddNewComponent implements OnInit {
     constructor(private _materialService: MaterialService) { }
 
     ngOnInit() {
-        this._materialService.columns.subscribe(res => {
-            this.columns = res;
-            console.log(JSON.stringify(res));
-        });
+        this.columns = this._materialService.columns;
     }
-
 
     onAdd(e) {
         this._materialService.createMaterial(e.data);

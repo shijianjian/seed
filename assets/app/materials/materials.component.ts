@@ -12,7 +12,7 @@ import { MaterialsEventService } from './materials.event.service';
     ]
 })
 
-export class MaterialsComponent implements OnInit, OnDestroy {
+export class MaterialsComponent implements OnInit {
 
     data;
 
@@ -21,10 +21,6 @@ export class MaterialsComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        this._materialService.data.subscribe(res => this.data = res);
-    }
-
-    ngOnDestroy() {
-        this._materialService.data.unsubscribe();
+        this.data = this._materialService.data;
     }
 }
