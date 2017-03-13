@@ -56,3 +56,8 @@ input.ng-invalid.ng-touched {
   max-height: 60vh;
   overflow-y: scroll;
 }
+
+.dropdown-menu {
+  right: 0 !important;
+  left: auto !important;
+}

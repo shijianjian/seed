@@ -9,24 +9,30 @@ import { MaterialService } from '../../materials.service'
     template: `
             <div style="display: flex; 
                  justify-content: space-between;">
-                <ul [dragula]='"list-bag"' 
-                    [dragulaModel]='waitingBag' 
-                    class="list-group" 
-                    style="min-width: 100px; padding-right: 10px;">
-                    <li 
-                        *ngFor="let item of waitingBag" 
-                        class="list-group-item" 
-                        [innerHtml]="item.key|uppercase"></li>
-                </ul>
-                <ul [dragula]='"list-bag"' 
-                    [dragulaModel]='selectedBag' 
-                    class="list-group" 
-                    style="min-width: 100px; padding-left: 10px;">
-                    <li 
-                        *ngFor="let item of selectedBag" 
-                        class="list-group-item" 
-                        [innerHtml]="item.key|uppercase"></li>
-                </ul>
+                 <div style=" padding-right: 10px;">
+                    <h6 style="color: aliceblue">invisible items:</h6>
+                    <ul [dragula]='"list-bag"' 
+                        [dragulaModel]='waitingBag' 
+                        class="list-group" 
+                        style="min-width: 100px;">
+                        <li 
+                            *ngFor="let item of waitingBag" 
+                            class="list-group-item" 
+                            [innerHtml]="item.key|uppercase"></li>
+                    </ul>
+                </div>
+                <div style=" padding-right: 10px;">
+                    <h6 style="color: aliceblue">selected: </h6>
+                    <ul [dragula]='"list-bag"' 
+                        [dragulaModel]='selectedBag' 
+                        class="list-group" 
+                        style="min-width: 100px; padding-left: 10px;">
+                        <li 
+                            *ngFor="let item of selectedBag" 
+                            class="list-group-item" 
+                            [innerHtml]="item.key|uppercase"></li>
+                    </ul>
+                </div>
             </div>       
             <br>
             <button type="button" class="btn btn-primary pull-right" (click)="confirm()">{{ button }}</button>
@@ -54,13 +60,10 @@ export class DragListComponent implements OnInit {
     ngOnInit() {
         let dataView = []
         this._materialService.dataView.subscribe(res => {
-            // TODO : weird error, output not same as input array.
             dataView = res;
                 console.log(dataView)
             for(let i=0; i<dataView.length; i++) {
-                if(dataView[i].key == "id"){
-                    dataView.splice(i,1); // remove id option
-                } else {
+                if(dataView[i].key != "id"){ // remove id option
                     if(dataView[i].value == true) {
                         this.selectedBag.push(dataView[i]);
                     } else {
@@ -85,8 +88,7 @@ export class DragListComponent implements OnInit {
     }
 
     private onDropModel() {
-        console.log(this.waitingBag);
-        console.log(this.selectedBag);
+
     }
 
 }
