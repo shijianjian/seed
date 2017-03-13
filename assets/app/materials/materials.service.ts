@@ -77,6 +77,7 @@ export class MaterialService{
                 this._dataView.push({key: res[i] , value: true});
             }
             this.dataView.next(this._dataView);
+            console.log(this.dataView)
         });
     }
 
