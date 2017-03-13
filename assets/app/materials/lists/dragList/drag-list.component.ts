@@ -9,31 +9,30 @@ import { MaterialService } from '../../materials.service'
     template: `
             <div style="display: flex; 
                  justify-content: space-between;">
-                 <div style=" padding-right: 10px;">
-                    <h6 style="color: aliceblue">invisible items:</h6>
-                    <ul [dragula]='"list-bag"' 
-                        [dragulaModel]='waitingBag' 
-                        class="list-group" 
-                        style="min-width: 100px;">
-                        <li 
-                            *ngFor="let item of waitingBag" 
-                            class="list-group-item" 
-                            [innerHtml]="item.key|uppercase"></li>
-                    </ul>
-                </div>
-                <div style=" padding-right: 10px;">
-                    <h6 style="color: aliceblue">selected: </h6>
-                    <ul [dragula]='"list-bag"' 
-                        [dragulaModel]='selectedBag' 
-                        class="list-group" 
-                        style="min-width: 100px; padding-left: 10px;">
-                        <li 
-                            *ngFor="let item of selectedBag" 
-                            class="list-group-item" 
-                            [innerHtml]="item.key|uppercase"></li>
-                    </ul>
-                </div>
-            </div>       
+                 <div style="padding-right: 10px; color: aliceblue; min-width: 100px;">Invisible: </div>
+                 <div style="padding-left: 10px; color: aliceblue; min-width: 100px;">Selected: </div>
+            </div>
+            <div style="display: flex; 
+                 justify-content: space-between;">
+                <ul [dragula]='"list-bag"' 
+                    [dragulaModel]='waitingBag' 
+                    class="list-group" 
+                    style="min-width: 100px; padding-right: 10px;">
+                    <li 
+                        *ngFor="let item of waitingBag" 
+                        class="list-group-item" 
+                        [innerHtml]="item.key|uppercase"></li>
+                </ul>
+                <ul [dragula]='"list-bag"' 
+                    [dragulaModel]='selectedBag' 
+                    class="list-group" 
+                    style="min-width: 100px; padding-left: 10px;">
+                    <li 
+                        *ngFor="let item of selectedBag" 
+                        class="list-group-item" 
+                        [innerHtml]="item.key|uppercase"></li>
+                </ul>
+            </div>   
             <br>
             <button type="button" class="btn btn-primary pull-right" (click)="confirm()">{{ button }}</button>
     `,
