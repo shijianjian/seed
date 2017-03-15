@@ -1,6 +1,6 @@
 ---
 applications:
-- name: my-music-app
+- name: material-database
   memory: 128M
   buildpack: nodejs_buildpack
   #command:  DEBUG=express:* node app.js

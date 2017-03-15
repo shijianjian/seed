@@ -1,6 +1,7 @@
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { AuthService } from '../auth/auth.service';
 import 'rxjs';
 
 
@@ -10,7 +11,7 @@ export class MaterialService{
 
     private baseUrl = process.env.baseUrl;
 
-    constructor(private _http: Http){ 
+    constructor(private _http: Http, private _authService: AuthService){
         this.getColumns();
     }
 
@@ -36,7 +37,7 @@ export class MaterialService{
 
     getDataByName(name){
         this.clearSearchData();
-        this._http.get(this.baseUrl + '/material?query=' + name )
+        this._http.get(this.baseUrl + '/material?query=' + name)
                     .map(res => res.json())
                     .distinctUntilChanged()
                     .subscribe(data => {
@@ -105,7 +106,7 @@ export class MaterialService{
 
     deleteMaterial(id) {
         this._http.delete(this.baseUrl + "/material/"+id)
-                    .subscribe( confirmation => 
+                    .subscribe( confirmation =>
                         console.log(confirmation)
                     );
     }

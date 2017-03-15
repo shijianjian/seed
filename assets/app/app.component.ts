@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { AuthService } from './auth/auth.service';
+
 @Component({
     selector: 'my-app',
     templateUrl: './app.component.html',
@@ -12,4 +14,10 @@ import { Component } from '@angular/core';
 
 export class AppComponent {
     appName = "Spring Music";
+
+    constructor(private _authService: AuthService) {}
+
+    onLogin() {
+        
+    }
 }

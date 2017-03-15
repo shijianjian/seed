@@ -7,6 +7,9 @@ var bodyParser = require('body-parser');
 
 var appRoutes = require('./routes/app');
 
+var passport = require('passport');
+var passportConfig = require('./passport.config');
+
 var app = express();
 
 // view engine setup
@@ -33,6 +36,18 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', appRoutes);
+
+
+// Initialize Passport
+app.use(passport.initialize());
+// Also use passport.session() middleware, to support persistent login sessions (recommended).
+app.use(passport.session());
+passport = passportConfig.configurePassportStrategy();
+
+app.get('/login', passport.authenticate('predix', {'scope': ''}), function(req, res) {
+// The request will be redirected to Predix for authentication, so this
+// function will not be called.
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
