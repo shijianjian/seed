@@ -31,30 +31,19 @@ function configurePassportStrategy() {
 		done(null, obj);
 	});
 
-	function getSecretFromEncodedString(encoded) {
-		if (!encoded) {
-			return '';
-		}
-		var decoded = new Buffer(encoded, 'base64').toString();
-		// console.log('DECODED:  ' + decoded);
-		var values = decoded.split(':');
-		if (values.length !== 2) {
-			throw "base64ClientCredential is not correct. \n It should be the base64 encoded value of: 'client:secret' \n Set in localConfig.json for local dev, or environment variable in the cloud.";
-		}
-		return values[1];
-	}
-
 	var predixStrategy = new PredixStrategy({
 		clientID: 'foo',
 		clientSecret: 'foo',
-		callbackURL: "https://localhost:3000",
+		callbackURL: "/",
+		// uaaURL: "https://2f2bd91e-3b1b-4e16-9838-7f697b13c47e.predix-uaa.run.aws-usw02-pr.ice.predix.io"
 		authorizationURL: "https://2f2bd91e-3b1b-4e16-9838-7f697b13c47e.predix-uaa.run.aws-usw02-pr.ice.predix.io/oauth/authorize",
 		tokenURL: "https://2f2bd91e-3b1b-4e16-9838-7f697b13c47e.predix-uaa.run.aws-usw02-pr.ice.predix.io/oauth/token"
 	},refreshStrategy.getOAuth2StrategyCallback(), //Create a callback for OAuth2Strategy
 	function(accessToken, refreshToken, profile, done) {
 		token = accessToken;
 		done(null, profile);
-	});
+	}
+	);
 
 	passport.use(predixStrategy);
 	//Register the OAuth strategy to perform OAuth2 refresh token workflow
