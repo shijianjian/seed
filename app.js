@@ -1,7 +1,9 @@
 var express = require('express');
+var session = require('express-session');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var request = require('request');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
@@ -9,16 +11,14 @@ var appRoutes = require('./routes/app');
 
 var passport = require('passport');
 var passportConfig = require('./passport.config');
+var proxy = require('./routes/proxy');
+var config = require('./predix-config');
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-
-// mongodb set up
-//var mongoose   = require('mongoose');
-//mongoose.connect('mongodb://localhost:27017');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -28,6 +28,24 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+var node_env = process.env.node_env || 'development';
+if (node_env === 'development') {
+    var devConfig = require('./localConfig.json')[node_env];
+	proxy.setServiceConfig(config.buildVcapObjectFromLocalConfig(devConfig));
+	proxy.setUaaConfig(devConfig);
+}
+
+app.set('trust proxy', 1);
+app.use(cookieParser('predixsample'));
+// Initializing default session store
+// *** Use this in-memory session store for development only. Use redis for prod. **
+app.use(session({
+	secret: 'predixsample',
+	name: 'cookie_name',
+	proxy: true,
+	resave: true,
+	saveUninitialized: true}));
+
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -35,19 +53,27 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use('/', appRoutes);
+if (config.isUaaConfigured()) {
+	app.use(passport.initialize());
+  // Also use passport.session() middleware, to support persistent login sessions (recommended).
+	app.use(passport.session());
 
+    passport = passportConfig.configurePassportStrategy();
 
-// Initialize Passport
-app.use(passport.initialize());
-// Also use passport.session() middleware, to support persistent login sessions (recommended).
-app.use(passport.session());
-passport = passportConfig.configurePassportStrategy();
+    app.use('/', appRoutes);
 
-app.get('/login', passport.authenticate('predix', {'scope': ''}), function(req, res) {
-// The request will be redirected to Predix for authentication, so this
-// function will not be called.
-});
+    app.get('/login', passport.authenticate('predix', {'scope': 'openid'}), function(req, res) {
+        // The request will be redirected to Predix for authentication, so this
+        // function will not be called.
+    });
+
+    app.get('/callback', passport.authenticate('predix'), function(req, res, next) {
+        
+        console.log(req.query.code);
+        res.redirect('/user');
+    });
+}
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

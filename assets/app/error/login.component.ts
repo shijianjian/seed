@@ -1,28 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { AuthService } from '../auth/auth.service';
 
 @Component({
     selector: 'my-login',
     template: `
-        <form role="form" [formGroup]="loginForm" (ngSubmit)="doLogin()">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" formControlName="username" class="form-control" name="username" placeholder="Username">
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" formControlName="password" class="form-control" name="password" placeholder="Password">
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Submit</button>
-        </form>
+        Welcome
     `
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
-    constructor(public fb: FormBuilder, private _authService : AuthService) {}
+    constructor(
+        public fb: FormBuilder, 
+        private _authService: AuthService,
+        private _activatedRoute: ActivatedRoute) {}
+
+    ngOnInit() {
+        this._activatedRoute.params.subscribe((params: Params) => {
+            let code = params['code'];
+            console.log(code);
+        })
+    }
 
     public loginForm = this.fb.group({
         username: ["", Validators.required],

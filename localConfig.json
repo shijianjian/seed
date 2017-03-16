@@ -1,0 +1,9 @@
+{
+    "development": {
+        "clientID": "foo",
+        "clientSecret": "foo",
+        "callbackURL": "/callback",
+        "authorizationURL": "https://2f2bd91e-3b1b-4e16-9838-7f697b13c47e.predix-uaa.run.aws-usw02-pr.ice.predix.io/",
+        "tokenURL": "https://2f2bd91e-3b1b-4e16-9838-7f697b13c47e.predix-uaa.run.aws-usw02-pr.ice.predix.io/oauth/token"
+    }
+}
