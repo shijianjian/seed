@@ -9,12 +9,21 @@ var bodyParser = require('body-parser');
 
 var appRoutes = require('./routes/app');
 
-var passport = require('passport');
+var passport;
 var passportConfig = require('./passport.config');
 var proxy = require('./routes/proxy');
 var config = require('./predix-config');
 
 var app = express();
+
+// should fix oauth error: socket hang up
+// but not
+var http = require('http');
+var https = require('https');
+http.Agent.maxSockets = 1024;
+http.globalAgent.maxSockets = 1024;
+https.Agent.maxSockets = 1024;
+https.globalAgent.maxSockets = 1024;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -30,7 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var node_env = process.env.node_env || 'development';
 if (node_env === 'development') {
-    var devConfig = require('./localConfig.json')[node_env];
+  var devConfig = require('./localConfig.json')[node_env];
 	proxy.setServiceConfig(config.buildVcapObjectFromLocalConfig(devConfig));
 	proxy.setUaaConfig(devConfig);
 }
@@ -53,24 +62,31 @@ app.use(function (req, res, next) {
     next();
 });
 
+console.log(config.isUaaConfigured());
+
 if (config.isUaaConfigured()) {
-	app.use(passport.initialize());
-  // Also use passport.session() middleware, to support persistent login sessions (recommended).
-	app.use(passport.session());
 
     passport = passportConfig.configurePassportStrategy();
 
+    app.use(passport.initialize());
+    // Also use passport.session() middleware, to support persistent login sessions (recommended).
+  	app.use(passport.session());
+
     app.use('/', appRoutes);
 
-    app.get('/login', passport.authenticate('predix', {'scope': 'openid'}), function(req, res) {
+    app.get('/login', passport.authenticate('predix', {'scope': ''}), function(req, res) {
         // The request will be redirected to Predix for authentication, so this
         // function will not be called.
     });
 
-    app.get('/callback', passport.authenticate('predix'), function(req, res, next) {
-        
-        console.log(req.query.code);
-        res.redirect('/user');
+    app.get('/callback',  function(req, res, next) {
+        passport.authenticate('predix',{ 'ciphers' : 'DES-CBC3-SHA'}, function (err, user, info) {
+            if(err){
+              console.log(err);
+              return next(err);
+            }
+            res.redirect('/user');
+          })(req, res, next);
     });
 }
 

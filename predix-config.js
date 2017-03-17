@@ -14,7 +14,7 @@ if(node_env === 'development') {
   // use localConfig file
 	var devConfig = require('./localConfig.json')[node_env];
 	// console.log(devConfig);
-	settings.base64ClientCredential = devConfig.base64ClientCredential;
+	settings.clientSecret = devConfig.clientSecret;
 	settings.clientId = devConfig.clientId;
 	settings.uaaURL = devConfig.uaaURL;
 	settings.tokenURL = devConfig.uaaURL;
@@ -91,10 +91,8 @@ settings.buildVcapObjectFromLocalConfig = function(config) {
 };
 
 settings.isUaaConfigured = function() {
-	return settings.clientId &&
-    settings.uaaURL &&
-    settings.uaaURL.indexOf('https') === 0 &&
-    settings.base64ClientCredential;
+	// TODO
+	return true;
 };
 
 module.exports = settings;
