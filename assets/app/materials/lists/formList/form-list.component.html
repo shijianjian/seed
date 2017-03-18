@@ -1,4 +1,4 @@
-<form [formGroup]="materialsForm" class="list-overflow-control" (ngSubmit)="onSubmit()">
+<form [formGroup]="materialsForm" class="list-overflow-control" style="padding: 20px;" (ngSubmit)="onSubmit()">
     <div *ngFor="let item of data | keys" class="form-row">
         <my-form-item [data]="item" [form]="materialsForm"></my-form-item>
     </div>

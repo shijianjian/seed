@@ -3,12 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { MaterialsModule } from './materials/materials.module';
 import { NavModule } from './nav/nav.module';
-import { ErrorModule } from './error/error.module';
 
 import { AppComponent } from "./app.component";
 import { routing } from './app.routes';
 
-import { AuthService } from "./auth/auth.service";
+import { AuthModule } from "./auth/auth.module";
 import { CanActivateViaOAuthGuard  } from "./auth/auth.canActivateGuard";
 
 import "./config";
@@ -21,10 +20,10 @@ import "./config";
         routing,
         BrowserModule,
         NavModule,
-        ErrorModule,
+        AuthModule,
         MaterialsModule
     ],
-    providers: [AuthService, CanActivateViaOAuthGuard],
+    providers: [CanActivateViaOAuthGuard],
     bootstrap: [AppComponent]
 })
 export class AppModule {

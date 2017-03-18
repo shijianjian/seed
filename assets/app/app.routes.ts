@@ -2,7 +2,7 @@ import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { MaterialsComponent } from './materials/materials.component';
-import { LoginComponent } from './error/login.component';
+import { LoginComponent } from './auth/login.component';
 
 import { CanActivateViaOAuthGuard } from './auth/auth.canActivateGuard';
 

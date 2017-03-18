@@ -2,17 +2,16 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http, URLSearchParams, Headers } from '@angular/http';
 
-
 @Injectable()
 export class AuthService {
 
-  private auth_url = "https://2f2bd91e-3b1b-4e16-9838-7f697b13c47e.predix-uaa.run.aws-usw02-pr.ice.predix.io";
+  private auth_url = process.env.uaaUrl;
   private client_id = "foo";
   private client_secret = "foo";
   
   constructor(private _http: Http, private _router: Router) { }
 
-  login(username: string, password: string) {
+  login(username: string, password: string) : void {
     let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
     let urlSearchParams = new URLSearchParams();
@@ -32,12 +31,24 @@ export class AuthService {
                 });
   }
 
-  logout() {
+  logout() : void {
     localStorage.removeItem('token');
   }
 
-  loggedIn() {
+  loggedIn() : boolean{
+    if(localStorage.getItem("token")) {
+      return true;
+    }
+    return false;
+  }
 
+  getAuthHeader() : Headers {
+    if(this.loggedIn()) {
+      let headers = new Headers();
+          headers.append('Authorization', 'Bearer '+ localStorage.getItem('token'));
+      return headers;
+    }
+    throw new ReferenceError("Couldn't find your token, please log in.");
   }
 
 }
