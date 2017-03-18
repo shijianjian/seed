@@ -50,10 +50,10 @@ export class ToolBoxComponent implements OnInit, OnDestroy {
     }
 
     onClick(option) : void {
-        if(this.index == option) {
-            this.index = '';
-        } else if (this.index == 'search') {
+        if(this.index == 'search') {
             // TODO: since the onBlur() method triggered first.
+        } else if(this.index == option) {
+            this.index = '';
         } else {
             this.index = option;
             console.log(this.index);

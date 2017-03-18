@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { MaterialService } from './materials.service';
 import { MaterialsEventService } from './materials.event.service';

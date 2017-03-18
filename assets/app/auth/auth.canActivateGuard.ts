@@ -8,7 +8,7 @@ export class CanActivateViaOAuthGuard implements CanActivate {
   
   canActivate() {
     if(localStorage.getItem("token") === null){
-      this.router.navigateByUrl('/user');
+      this.router.navigateByUrl('/login');
     }
     return (localStorage.getItem("token") === null) ? false : true;
   }

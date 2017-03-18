@@ -8,7 +8,7 @@ import { CanActivateViaOAuthGuard } from './auth/auth.canActivateGuard';
 
 export const appRoutes: Routes = [
     { path: '', component: MaterialsComponent , canActivate : [CanActivateViaOAuthGuard] },
-    { path: 'user', component: LoginComponent }
+    { path: 'login', component: LoginComponent }
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
