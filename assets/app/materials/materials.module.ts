@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 
-import { ListModule } from './lists/list.module';
+import { routing } from './materials.routes';
 
+import { ListModule } from './lists/list.module';
 // Does not work with system.js
 import { ModalModule } from 'ng2-bootstrap';
-
 import { ToolBoxModule } from './toolBox/tool-box.module';
 import { CardsModule } from "./cards/cards.module";
-import { MaterialsComponent } from './materials.component';
 import { CommonModule } from '../common/common.module';
+import { MaterialsComponent } from './materials.component';
 
 
 @NgModule({
@@ -19,6 +19,7 @@ import { CommonModule } from '../common/common.module';
     ],
     imports: [
         BrowserModule,
+        routing,
         HttpModule,
         ListModule,
         CardsModule,

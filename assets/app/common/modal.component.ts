@@ -1,9 +1,9 @@
-import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap';
+import { Component, Input, ViewChild } from '@angular/core';
+import { ModalDirective } from 'ng2-bootstrap/modal';
 
 @Component({
     selector: 'my-modal',
-    templateUrl: `
+    template: `
         <div bsModal #modal="bs-modal" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">

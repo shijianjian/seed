@@ -3,6 +3,7 @@
  */
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 
 import { CommonModule } from '../../common/common.module';
 import { ListModule } from '../lists/list.module';
@@ -23,6 +24,7 @@ import { ConfigComponent } from './config/config.component';
     imports: [
         BrowserModule,
         SearchBoxModule,
+        RouterModule,
         CommonModule,
         ListModule
     ],

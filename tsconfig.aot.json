@@ -6,17 +6,27 @@
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "removeComments": false,
+    "removeComments":true,
     "noImplicitAny": false,
-    "outDir": "./public/js/app"
+    "outDir": "./public/js/app",
+    "skipLibCheck": true,
+    "baseUrl": "."
   },
   "exclude": [
     "node_modules",
     "dist",
     "assets/app/polyfills.ts"
   ],
+   "include": [
+     "./assets/app/app.module.ts",
+     "./assets/app/*/*.module.ts",
+     "./assets/app/*.module.ts",
+     "./assets/app/*.d.ts"
+   ],
 
   "angularCompilerOptions": {
-    "skipMetadataEmit" : true
+    "debug": true,
+    "entryModule":"assets/app/app.module#AppModule"
   }
 }
+

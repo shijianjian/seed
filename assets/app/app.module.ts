@@ -23,6 +23,9 @@ import "./config";
         AuthModule,
         MaterialsModule
     ],
+    exports: [
+        AppComponent
+    ],
     providers: [CanActivateViaOAuthGuard],
     bootstrap: [AppComponent]
 })

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 // util imports
 import { KeyValuePipe } from './key-value.pipe';
 import { JsonObjectPipe } from './json-object.pipe';
-import { ModalModule } from 'ng2-bootstrap';
+import { ModalModule } from 'ng2-bootstrap/modal';
 import { ModalComponent } from './modal.component';
 import { ArrayJsonPipe } from './array-json.pipe';
 
@@ -16,7 +16,7 @@ import { ArrayJsonPipe } from './array-json.pipe';
     ],
     imports: [
         BrowserModule,
-        ModalModule.forRoot()
+        ModalModule
     ],
     exports: [
         KeyValuePipe,

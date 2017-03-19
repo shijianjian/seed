@@ -3,6 +3,7 @@
         <ul class="nav nav-pills flex-column">
             <li class="nav-item">
                 <a class="nav-link"
+                   [routerLink]="['/']"
                    href="#"
                    [class.active]="index == 'search'"
                    (click)="onClick('search'); onSearch();">
@@ -11,6 +12,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link"
+                   [routerLink]="['/']"
                    href="#"
                    [class.active]="index == 'upload'"
                    (click)="onClick('upload'); onUpload();">
@@ -19,6 +21,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link"
+                   [routerLink]="['/']"
                    href="#"
                    [class.active]="index == 'adding'"
                    (click)="onClick('adding'); onAdding();">
@@ -27,6 +30,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link"
+                   [routerLink]="['/']"
                    href="#"
                    [class.active]="index == 'config'"
                    (click)="onClick('config'); onConfig();">

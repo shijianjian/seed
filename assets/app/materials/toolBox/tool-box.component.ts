@@ -1,7 +1,9 @@
 /**
  * Created by shijian on 09/03/2017.
  */
-import {Component, OnInit, OnDestroy, trigger, state, style, transition, animate} from '@angular/core';
+import { Component, OnInit, OnDestroy, trigger, state, style, transition, animate } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
 
 import { MaterialsEventService } from '../materials.event.service';
 
