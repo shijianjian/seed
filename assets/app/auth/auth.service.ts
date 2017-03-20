@@ -85,6 +85,10 @@ export class AuthService {
           );
           this._user = user;
           this.user.next(this._user);
+        },
+        err => {
+            this.logout();
+            console.log('Can\'t find user, Please log in again.');
         });
   }
 

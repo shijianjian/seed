@@ -14,8 +14,7 @@
   },
   "exclude": [
     "node_modules",
-    "dist",
-    "assets/app/polyfills.ts"
+    "dist"
   ],
    "include": [
      "./assets/app/app.module.ts",
