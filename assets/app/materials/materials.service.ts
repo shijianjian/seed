@@ -1,4 +1,4 @@
-import { Http } from '@angular/http';
+import { Http, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AuthService } from '../auth/auth.service';
@@ -25,7 +25,8 @@ export class MaterialService{
 
     getAllData(){
         let headers = this._authService.getAuthHeader();
-        return this._http.get(this.baseUrl + '/', { headers: headers })
+        let authParam = this._authService.authParamUrl();
+        return this._http.get(this.baseUrl + authParam)
                 .map(res => res.json());
     }
 
@@ -37,7 +38,8 @@ export class MaterialService{
     getDataByName(name){
         this.clearSearchData();
         let headers = this._authService.getAuthHeader();
-        this._http.get(this.baseUrl + '/material?query=' + name, { headers: headers })
+        let authParam = this._authService.authParamUrl();
+        this._http.get(this.baseUrl + '/material' + authParam + '&query=' + name)
                     .map(res => res.json())
                     .distinctUntilChanged()
                     .subscribe(data => {
@@ -52,10 +54,16 @@ export class MaterialService{
 
     getColumns() {
         let headers = this._authService.getAuthHeader();
-        this._http.get(this.baseUrl + '/columns', { headers: headers })
-                    .map(res => res.json())
+        let authParam = this._authService.authParamUrl();
+        let options = new RequestOptions({ headers: headers });
+        this._http.get(this.baseUrl + '/columns' + authParam)
+                    .map(res => {
+                        console.log(res)
+                        return res.json();
+                    })
                     .distinctUntilChanged()
                     .subscribe(data => {
+                        console.log(data);
                         this._columns = data;
                         this.updateDataView();
                         this.columns.next(this._columns);
@@ -64,9 +72,10 @@ export class MaterialService{
 
     uploadFile(file): void {
         let headers = this._authService.getAuthHeader();
+        let authParam = this._authService.authParamUrl();
         let formData:FormData = new FormData();
         formData.append('file', file, file.name);
-        this._http.post(this.baseUrl + "/uploadFile", formData, { headers: headers })
+        this._http.post(this.baseUrl + "/uploadFile" + authParam, formData)
             .subscribe(data => console.log(data));
         // update columns and data view.
         this.getColumns();
@@ -85,9 +94,10 @@ export class MaterialService{
 
     createMaterial(material){
         let headers = this._authService.getAuthHeader();
+        let authParam = this._authService.authParamUrl();
         let body = JSON.stringify(material);
         if(typeof body != 'undefined') {
-            this._http.post(this.baseUrl + "/material", body, { headers: headers })
+            this._http.post(this.baseUrl + "/material" + authParam, body)
                         .map(res =>  res.json())
                         .subscribe(data => {
                             this.addData(data);
@@ -98,9 +108,10 @@ export class MaterialService{
 
     updateMaterial(material) {
         let headers = this._authService.getAuthHeader();
+        let authParam = this._authService.authParamUrl();
         let body = JSON.stringify(material);
         if(typeof body != 'undefined') {
-            this._http.put(this.baseUrl + "/material", body, { headers: headers })
+            this._http.put(this.baseUrl + "/material" + authParam, body)
                         .map(res => res.json())
                         .subscribe(data => {
                             this.updateData(data);
@@ -110,7 +121,8 @@ export class MaterialService{
 
     deleteMaterial(id) {
         let headers = this._authService.getAuthHeader();
-        this._http.delete(this.baseUrl + "/material/"+id, { headers: headers })
+        let authParam = this._authService.authParamUrl();
+        this._http.delete(this.baseUrl + "/material/"+id + authParam, { headers: headers })
                     .subscribe( confirmation =>
                         console.log(confirmation)
                     );

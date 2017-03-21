@@ -19,6 +19,7 @@ export class AuthService {
 
   login(username: string, password: string) : void {
     let headers = new Headers();
+        headers.append("Accept", 'application/json');
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
     let urlSearchParams = new URLSearchParams();
       urlSearchParams.append('username', username);
@@ -67,6 +68,13 @@ export class AuthService {
     // TODO : Err handling future
     // throw new ReferenceError("Couldn't find your token or token expired, please log in.");
       console.log("Couldn't find your token or token expired, please log in.");
+  }
+
+  authParamUrl() : string {
+    if(this.loggedIn() && this.checkCurrentToken()) {
+      let param = "?access_token=" + localStorage.getItem('token');
+      return param;
+    }
   }
 
   getUserInfo() : void {
