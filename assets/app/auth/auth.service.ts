@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http, URLSearchParams, Headers } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { Observable } from 'rxjs';
+import 'rxjs';
 
 import { User } from '../model/User';
 
@@ -9,50 +12,40 @@ import { User } from '../model/User';
 export class AuthService {
 
   private auth_url = process.env.uaaUrl;
-  private client_id = "foo";
-  private client_secret = "foo";
+  private app_url = process.env.appUrl;
+  private client_id = process.env.client_id;
+  private client_secret = process.env.client_secret;
   private _user : User;
 
   user = new BehaviorSubject<User>(this._user);
 
   constructor(private _http: Http, private _router: Router) { }
 
-  login(username: string, password: string) : void {
-    let headers = new Headers();
-        headers.append("Accept", 'application/json');
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    let urlSearchParams = new URLSearchParams();
-      urlSearchParams.append('username', username);
-      urlSearchParams.append('password', password);
-      urlSearchParams.append('client_id', this.client_id);
-      urlSearchParams.append('client_secret', this.client_secret);
-      urlSearchParams.append('response_type', 'token');
-      urlSearchParams.append('grant_type', 'password');
-    let body = urlSearchParams.toString()
-    this._http.post(this.auth_url + "/oauth/token", body, {headers: headers})
-                .map(res => res.json())
-                .subscribe(data => {
-                  console.log(data);
-                  localStorage.setItem('token', data.access_token);
-                  //get user info after obtained the token
-                  this.getUserInfo();
-                  this._router.navigateByUrl("/");
-                });
-  }
-
   checkCurrentToken() : boolean {
     // TODO: Check token expired or not.
     return true;
   }
 
-  logout() : void {
-    localStorage.removeItem('token');
-    this._user = new User( "", "", "", "", "", "", "" );
-    this.user.next(this._user);
-    this._router.navigateByUrl("/login");
+  clearCookies() : void {
+    Cookie.delete('token');
+    Cookie.delete('connect.sid');
   }
 
-  loggedIn() : boolean{
+  setToken() : void {
+    if(Cookie.get('token')) {
+      localStorage.setItem('token', Cookie.get('token'));
+    }
+  }
+
+  logout() : void {
+    this.clearCookies();
+    this._user = new User( "", "", "", "", "", "", "" );
+    this.user.next(this._user);
+    window.location.href = this.app_url + '/logout';
+    localStorage.removeItem('token');
+  }
+
+  loggedIn() : boolean {
     if(localStorage.getItem("token") && this.checkCurrentToken()) {
       return true;
     }
@@ -67,7 +60,6 @@ export class AuthService {
     }
     // TODO : Err handling future
     // throw new ReferenceError("Couldn't find your token or token expired, please log in.");
-      console.log("Couldn't find your token or token expired, please log in.");
   }
 
   authParamUrl() : string {
@@ -80,7 +72,7 @@ export class AuthService {
   getUserInfo() : void {
     let headers = this.getAuthHeader();
     this._http.get(this.auth_url + "/userinfo", { headers: headers })
-        .map(res => res.json())
+        .map(res => res.json(), err => {})
         .subscribe(data => {
           let user = new User(
               data.email,
@@ -95,9 +87,30 @@ export class AuthService {
           this.user.next(this._user);
         },
         err => {
-            this.logout();
-            console.log('Can\'t find user, Please log in again.');
+          this._user = new User( "", "", "", "", "", "", "" );
         });
   }
 
+  checkToken() : Observable<boolean> {
+    let valid : boolean = false;
+    let base64Credentials = btoa(`${this.client_id}:${this.client_secret}`);
+    this.setToken();
+    let headers = new Headers();
+        headers.append('Content-type', 'application/x-www-form-encoded');
+        headers.append('Authorization', 'Basic '+ base64Credentials);
+    let urlSearchParams = new URLSearchParams();
+        urlSearchParams.append('token', localStorage.getItem('token'));
+    let body = urlSearchParams.toString();
+    return this._http.post(this.auth_url + '/check_token?token='+ localStorage.getItem('token'), {}, { headers: headers })
+              .map(res =>{
+                  console.log(res);
+                  if(res.status == 200) {
+                      valid = true;
+                      return valid;
+                  } else {
+                      return valid;
+                  }
+              })
+  
+  }
 }

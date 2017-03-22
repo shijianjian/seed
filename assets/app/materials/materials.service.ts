@@ -24,7 +24,6 @@ export class MaterialService{
     dataView = new BehaviorSubject<Array<Object>>(this._dataView);
 
     getAllData(){
-        let headers = this._authService.getAuthHeader();
         let authParam = this._authService.authParamUrl();
         return this._http.get(this.baseUrl + authParam)
                 .map(res => res.json());
@@ -37,7 +36,6 @@ export class MaterialService{
 
     getDataByName(name){
         this.clearSearchData();
-        let headers = this._authService.getAuthHeader();
         let authParam = this._authService.authParamUrl();
         this._http.get(this.baseUrl + '/material' + authParam + '&query=' + name)
                     .map(res => res.json())
@@ -53,9 +51,7 @@ export class MaterialService{
     }
 
     getColumns() {
-        let headers = this._authService.getAuthHeader();
         let authParam = this._authService.authParamUrl();
-        let options = new RequestOptions({ headers: headers });
         this._http.get(this.baseUrl + '/columns' + authParam)
                     .map(res => {
                         console.log(res)
@@ -71,7 +67,6 @@ export class MaterialService{
     }
 
     uploadFile(file): void {
-        let headers = this._authService.getAuthHeader();
         let authParam = this._authService.authParamUrl();
         let formData:FormData = new FormData();
         formData.append('file', file, file.name);
@@ -93,7 +88,6 @@ export class MaterialService{
     }
 
     createMaterial(material){
-        let headers = this._authService.getAuthHeader();
         let authParam = this._authService.authParamUrl();
         let body = JSON.stringify(material);
         if(typeof body != 'undefined') {
@@ -107,7 +101,6 @@ export class MaterialService{
     }
 
     updateMaterial(material) {
-        let headers = this._authService.getAuthHeader();
         let authParam = this._authService.authParamUrl();
         let body = JSON.stringify(material);
         if(typeof body != 'undefined') {
@@ -120,9 +113,8 @@ export class MaterialService{
     }
 
     deleteMaterial(id) {
-        let headers = this._authService.getAuthHeader();
         let authParam = this._authService.authParamUrl();
-        this._http.delete(this.baseUrl + "/material/"+id + authParam, { headers: headers })
+        this._http.delete(this.baseUrl + "/material/"+id + authParam)
                     .subscribe( confirmation =>
                         console.log(confirmation)
                     );

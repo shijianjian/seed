@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 
-import { routing } from './materials.routes';
-
 import { ListModule } from './lists/list.module';
 // Does not work with system.js
 import { ModalModule } from 'ng2-bootstrap';
@@ -19,7 +17,6 @@ import { MaterialsComponent } from './materials.component';
     ],
     imports: [
         BrowserModule,
-        routing,
         HttpModule,
         ListModule,
         CardsModule,

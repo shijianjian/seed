@@ -20,8 +20,8 @@
           <i class="fa fa-user" aria-hidden="true"></i>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" *ngIf="!loggedIn()" (click)="onLogin()"  href="#">Log in</a>
-          <a class="dropdown-item" *ngIf="loggedIn()" (click)="onLogout()" href="#">Log out</a>
+          <a class="dropdown-item" *ngIf="!loggedIn()" (click)="onLogin()">Log in</a>
+          <a class="dropdown-item" *ngIf="loggedIn()" (click)="onLogout()">Log out</a>
         </div>
       </li>
     </ul>
