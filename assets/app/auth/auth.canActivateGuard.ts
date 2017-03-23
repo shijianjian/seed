@@ -21,6 +21,7 @@ export class CanActivateViaOAuthGuard implements CanActivate {
                   if(res.status == 200) {
                       valid = true;
                       this._authService.getUserInfo();
+                      this._authService.scope.next(res.json().scope);
                   } else {
                       valid = false;
                       this._router.navigateByUrl('/login');

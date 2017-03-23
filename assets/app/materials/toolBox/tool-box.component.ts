@@ -4,7 +4,7 @@
 import { Component, OnInit, OnDestroy, trigger, state, style, transition, animate } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-
+import { AuthService } from '../../auth/auth.service';
 import { MaterialsEventService } from '../materials.event.service';
 
 @Component({
@@ -39,15 +39,27 @@ import { MaterialsEventService } from '../materials.event.service';
 
 export class ToolBoxComponent implements OnInit, OnDestroy {
 
-    index;
+    index: String;
+    scope = [];
 
-    constructor(private _materialEventService : MaterialsEventService) { }
+    constructor(
+        private _materialEventService : MaterialsEventService,
+        private _authService : AuthService
+    ) { }
 
     ngOnInit() {
-        this._materialEventService.sidebarIndex.subscribe(index => this.index = index);
+        this._materialEventService.sidebarIndex
+            .subscribe(index => {
+                this.index = index;
+            });
+        this._authService.scope
+            .subscribe(scope => {
+                this.scope = scope;
+            });
     }
 
     ngOnDestroy() {
+        this._authService.scope.unsubscribe();
         this._materialEventService.sidebarIndex.unsubscribe();
     }
 

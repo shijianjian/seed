@@ -19,6 +19,7 @@ export class AuthService {
 
   user = new BehaviorSubject<User>(this._user);
   valid = new BehaviorSubject<boolean>(false);
+  scope = new BehaviorSubject<Array<string>>([]);
 
   constructor(private _http: Http, private _router: Router) {
     this.checkToken();
@@ -45,6 +46,7 @@ export class AuthService {
     this.user.next(this._user);
     window.location.href = this.app_url + '/logout';
     this.valid.next(false);
+    this.scope.next([]);
   }
 
   authParamUrl() : string {
