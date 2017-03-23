@@ -14,20 +14,18 @@ export class NavComponent implements OnInit {
     @Input() appName= "";
 
     user;
+    valid;
 
     constructor(
         private _authService: AuthService,
         private _router: Router
     ){ 
-        this._authService.getUserInfo();
+        this._authService.checkToken();
     }
 
     ngOnInit() {
         this.user = this._authService.user;
-    }
-
-    loggedIn() : boolean {
-        return this._authService.loggedIn();
+        this.valid = this._authService.valid;
     }
 
     private onLogin() {

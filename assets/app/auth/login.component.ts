@@ -20,11 +20,11 @@ export class LoginComponent {
     ) {}
 
     onGeSsoClick() {
-        this._authService.clearCookies();
+        this._authService.clearCookiesAndStorage();
     }
 
     onPredixClick() {
-        this._authService.clearCookies();
-        window.location.href = process.env.appUrl + '/signin';
+        this._authService.clearCookiesAndStorage();
+        this._authService.login();
     }
 }

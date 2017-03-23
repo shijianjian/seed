@@ -9,6 +9,7 @@ import { routing } from './app.routes';
 
 import { AuthModule } from "./auth/auth.module";
 import { CanActivateViaOAuthGuard  } from "./auth/auth.canActivateGuard";
+import { AuthService } from "./auth/auth.service";
 
 import "./config";
 
@@ -26,7 +27,10 @@ import "./config";
     exports: [
         AppComponent
     ],
-    providers: [CanActivateViaOAuthGuard],
+    providers: [
+        CanActivateViaOAuthGuard,
+        {provide: AuthService, useClass: AuthService}
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

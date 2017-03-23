@@ -14,9 +14,6 @@ import { AuthService } from './auth.service';
     exports: [
         LoginComponent
     ],
-    providers: [
-        AuthService
-    ],
     imports: [
         BrowserModule
     ]
