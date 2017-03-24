@@ -51,10 +51,16 @@ app.get('/signin', passport.authenticate('predix', {'scope': ''}), function(req,
     // function will not be called.
 });
 
-app.get('/signin/callback', passport.authenticate('predix'), function(req, res, next) {
-        res.cookie('token', req.user.ticket.access_token);
-        res.redirect('/materials');
-        next();
+app.get('/signin/callback', function(req, res, next) {
+    passport.authenticate('predix', function(err, user, info) {
+        if(err) { return next(err); }
+        if(!user) { return res.redirect('/login'); }
+        req.logIn(user, function(err) {
+            if (err) { return next(err); }
+            res.cookie('token', user.ticket.access_token);
+            return res.redirect('/material');
+        });
+    })(req, res, next);
 });
 
 app.get('/logout', function(req, res) {

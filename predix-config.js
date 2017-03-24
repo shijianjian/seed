@@ -35,7 +35,7 @@ if(node_env === 'development') {
 	var vcapsApplication = JSON.parse(process.env.VCAP_APPLICATION);
 		settings.appURL = 'https://' + vcapsApplication.uris[0];
 		settings.callbackURL = settings.appURL + '/signin/callback';
-		settings.base64ClientCredential = process.env.base64ClientCredential;
+		settings.clientSecret = process.env.clientSecret;
 		settings.clientId = process.env.clientId;
 }
 console.log('config settings: ' + JSON.stringify(settings));
@@ -53,11 +53,6 @@ settings.buildVcapObjectFromLocalConfig = function(config) {
 		}];
 	}
 	return vcapObj;
-};
-
-settings.isUaaConfigured = function() {
-	// TODO
-	return true;
 };
 
 module.exports = settings;
