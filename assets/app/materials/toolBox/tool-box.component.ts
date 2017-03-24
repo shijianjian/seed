@@ -70,7 +70,6 @@ export class ToolBoxComponent implements OnInit, OnDestroy {
             this.index = '';
         } else {
             this.index = option;
-            console.log(this.index);
         }
     }
 

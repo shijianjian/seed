@@ -17,7 +17,7 @@ function configurePassportStrategy(predixConfig) {
   passport.use('main', refreshStrategy);
 
 	passport.serializeUser(function(user, done) {
-		console.log("From USER-->"+JSON.stringify(user));
+		// console.log("From USER-->"+JSON.stringify(user));
 		done(null, user);
 	});
 	passport.deserializeUser(function(obj, done) {

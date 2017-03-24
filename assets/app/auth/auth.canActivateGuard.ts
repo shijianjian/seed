@@ -25,12 +25,14 @@ export class CanActivateViaOAuthGuard implements CanActivate {
                   } else {
                       valid = false;
                       this._router.navigateByUrl('/login');
+                      this._authService.clearCookiesAndStorage();
                   }
                   this._authService.valid.next(valid);
                   return valid;
               })
               .catch(error =>{
                   this._router.navigateByUrl('/login');
+                  this._authService.clearCookiesAndStorage();
                   this._authService.valid.next(false);
                   return Observable.of(false);
               }).take(1);

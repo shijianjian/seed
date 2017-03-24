@@ -54,12 +54,10 @@ export class MaterialService{
         let authParam = this._authService.authParamUrl();
         this._http.get(this.baseUrl + '/columns' + authParam)
                     .map(res => {
-                        console.log(res)
                         return res.json();
                     })
                     .distinctUntilChanged()
                     .subscribe(data => {
-                        console.log(data);
                         this._columns = data;
                         this.updateDataView();
                         this.columns.next(this._columns);

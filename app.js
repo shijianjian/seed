@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var passportConfig = require('./passport-config');
 var session = require('express-session');
+var config = require('./predix-config');
 
 var appRoutes = require('./routes/app');
 
@@ -64,11 +65,10 @@ app.get('/signin/callback', function(req, res, next) {
 });
 
 app.get('/logout', function(req, res) {
-    const localConfig = require('./localConfig.json').development;
     req.session.destroy();
     req.logout();
     passportConfig.reset();
-    res.redirect(localConfig.uaaURL + '/logout?redirect=' + localConfig.appURL);
+    res.redirect(config.uaaURL + '/logout?redirect=' + config.appURL);
 })
 
 // catch 404 and forward to error handler

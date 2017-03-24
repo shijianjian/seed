@@ -45,7 +45,7 @@
     "zone.js": "^0.7.2"
   },
   "devDependencies": {
-    "@ngtools/webpack": "^1.2.4",
+    "@ngtools/webpack": "1.2.14",
     "@types/core-js": "^0.9.35",
     "@types/node": "^6.0.57",
     "angular2-router-loader": "^0.3.5",
@@ -62,7 +62,7 @@
     "rimraf": "^2.6.1",
     "typescript": "2.0.10",
     "uglify-js": "git+https://github.com/mishoo/UglifyJS2.git#harmony",
-    "webpack": "^2.2.0",
+    "webpack": "2.2.0",
     "webpack-merge": "^2.0.0"
   }
 }

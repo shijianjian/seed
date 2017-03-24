@@ -1,6 +1,7 @@
 import { Component, Input, Output, ViewChild, EventEmitter } from '@angular/core';
 
 import { MaterialService } from '../materials.service';
+import { AuthService } from '../../auth/auth.service';
 
 import { JsonObjectPipe } from '../../common/json-object.pipe';
 import { ModalComponent } from '../../common/modal.component';
@@ -13,14 +14,29 @@ import { ModalComponent } from '../../common/modal.component';
 export class CardComponent{
     @Input('data') item;
     checked = false;
+    scope = [];
 
     @ViewChild('cmodal') cmodal : ModalComponent;
     @ViewChild('dmodal') dmodal : ModalComponent;
 
     briefing = "You will delete this card from your library.";
-    checkbox = "Delete from database. (Admin only)";
+    checkbox = "Delete from database. (Careful)";
 
-    constructor(private _materialService: MaterialService) {}
+    constructor(
+        private _materialService: MaterialService,
+        private _authService : AuthService
+    ) { }
+
+    ngOnInit() {
+        this._authService.scope
+            .subscribe(scope => {
+                this.scope = scope;
+            });
+    }
+
+    ngOnDestroy() {
+        this._authService.scope.unsubscribe();
+    }
 
     onEdit() {
         this.dmodal.showConfirmationModal();
