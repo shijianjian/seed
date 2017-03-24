@@ -51,6 +51,8 @@
     "angular2-router-loader": "^0.3.5",
     "angular2-template-loader": "^0.6.0",
     "awesome-typescript-loader": "^3.0.0-beta.17",
+    "babel": "^6.23.0",
+    "babel-preset-es2015": "^6.24.0",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
     "es6-promise-loader": "^1.0.2",
@@ -59,7 +61,8 @@
     "raw-loader": "^0.5.1",
     "rimraf": "^2.6.1",
     "typescript": "2.0.10",
-    "webpack": "2.2.0",
+    "uglify-js": "git+https://github.com/mishoo/UglifyJS2.git#harmony",
+    "webpack": "^2.2.0",
     "webpack-merge": "^2.0.0"
   }
 }

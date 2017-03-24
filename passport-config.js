@@ -1,7 +1,7 @@
 var passport = require('passport');
 var PredixStrategy = require('passport-predix-oauth').Strategy;
 var OAuth2RefreshTokenStrategy = require('passport-oauth2-middleware').Strategy;
-var localConfig = require('./localConfig.json').development;
+var config = require('./predix-config');
 var predixStrategy;
 
 function configurePassportStrategy(predixConfig) {
@@ -25,11 +25,11 @@ function configurePassportStrategy(predixConfig) {
 	});
 
 	predixStrategy = new PredixStrategy({
-		clientID: localConfig.clientId,
-		clientSecret: localConfig.clientSecret,
-		callbackURL: localConfig.callbackURL,
-		authorizationURL: localConfig.uaaURL,
-		tokenURL: localConfig.tokenURL
+		clientID: config.clientId,
+		clientSecret: config.clientSecret,
+		callbackURL: config.callbackURL,
+		authorizationURL: config.uaaURL,
+		tokenURL: config.tokenURL
 	},
 	refreshStrategy.getOAuth2StrategyCallback() //Create a callback for OAuth2Strategy
 	// function(accessToken, refreshToken, profile, done) {

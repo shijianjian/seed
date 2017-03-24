@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+const UglifyJSPlugin = require('uglify-js');
 
 const ngToolsWebpack = require('@ngtools/webpack');
 
@@ -10,7 +11,7 @@ module.exports = {
   },
   entry: './assets/app/main.ts',
   output: {
-    path: './public/js/app',
+    path: './public/js',
     publicPath: '/',
     filename: '[name].bundle.js',
     chunkFilename: '[id].chunk.js'
@@ -18,17 +19,7 @@ module.exports = {
   plugins: [
     new ngToolsWebpack.AotPlugin({
       tsConfigPath: './tsconfig.aot.json'
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            },
-            output: {
-                comments: false
-            },
-            sourceMap: false
-        }),
-      
+    })
   ],
   module: {
     loaders: [

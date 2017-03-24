@@ -8,7 +8,6 @@ var bodyParser = require('body-parser');
 
 var passport = require('passport');
 var passportConfig = require('./passport-config');
-var config = require('./predix-config');
 var session = require('express-session');
 
 var appRoutes = require('./routes/app');

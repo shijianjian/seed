@@ -12,7 +12,7 @@ var settings = {};
 var node_env = process.env.node_env || 'development';
 if(node_env === 'development') {
   // use localConfig file
-	var devConfig = require('./localConfig.json')[node_env];
+	var devConfig = require('./localConfig.json').development;
 	// console.log(devConfig);
 	settings.clientSecret = devConfig.clientSecret;
 	settings.clientId = devConfig.clientId;
@@ -21,39 +21,24 @@ if(node_env === 'development') {
 	settings.appURL = devConfig.appURL;
 	settings.callbackURL = devConfig.appURL + '/signin/callback';
 
-	settings.assetURL = devConfig.assetURL;
-	settings.assetZoneId = devConfig.assetZoneId;
-	settings.timeseriesZoneId = devConfig.timeseriesZoneId;
-	settings.timeseriesURL = devConfig.timeseriesURL;
-
 } else {
 	// read VCAP_SERVICES
 	var vcapsServices = JSON.parse(process.env.VCAP_SERVICES);
 	var uaaService = vcapsServices[process.env.uaa_service_label];
-	var assetService = vcapsServices['predix-asset'];
-	var timeseriesService = vcapsServices['predix-timeseries'];
 
 	if(uaaService) {
-    settings.uaaURL = uaaService[0].credentials.uri;
+    	settings.uaaURL = uaaService[0].credentials.uri;
 		settings.tokenURL = uaaService[0].credentials.uri;
-	}
-	if(assetService) {
-		settings.assetURL = assetService[0].credentials.uri + '/' + process.env.assetMachine;
-		settings.assetZoneId = assetService[0].credentials.zone['http-header-value'];
-	}
-	if(timeseriesService) {
-		settings.timeseriesZoneId = timeseriesService[0].credentials.query['zone-http-header-value'];
-		settings.timeseriesURL = timeseriesService[0].credentials.query.uri;
 	}
 
 	// read VCAP_APPLICATION
 	var vcapsApplication = JSON.parse(process.env.VCAP_APPLICATION);
-	settings.appURL = 'https://' + vcapsApplication.uris[0];
-	settings.callbackURL = settings.appURL + '/signin/callback';
-	settings.base64ClientCredential = process.env.base64ClientCredential;
-	settings.clientId = process.env.clientId;
+		settings.appURL = 'https://' + vcapsApplication.uris[0];
+		settings.callbackURL = settings.appURL + '/signin/callback';
+		settings.base64ClientCredential = process.env.base64ClientCredential;
+		settings.clientId = process.env.clientId;
 }
-// console.log('config settings: ' + JSON.stringify(settings));
+console.log('config settings: ' + JSON.stringify(settings));
 
 // This vcap object is used by the proxy module.
 settings.buildVcapObjectFromLocalConfig = function(config) {
@@ -64,26 +49,6 @@ settings.buildVcapObjectFromLocalConfig = function(config) {
 		vcapObj['predix-uaa'] = [{
 			credentials: {
 				uri: config.uaaURL
-			}
-		}];
-	}
-	if (config.timeseriesURL) {
-		vcapObj['predix-timeseries'] = [{
-			credentials: {
-				query: {
-					uri: config.timeseriesURL,
-					'zone-http-header-value': config.timeseriesZoneId
-				}
-			}
-		}];
-	}
-	if (config.assetURL) {
-		vcapObj['predix-asset'] = [{
-			credentials: {
-				uri: config.assetURL,
-				zone: {
-					'http-header-value': config.assetZoneId
-				}
 			}
 		}];
 	}
