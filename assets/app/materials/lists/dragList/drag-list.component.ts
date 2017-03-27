@@ -9,15 +9,15 @@ import { MaterialService } from '../../materials.service'
     template: `
             <div style="display: flex; 
                  justify-content: space-between;">
-                 <div style="padding-right: 10px; color: aliceblue; min-width: 100px;">Invisible: </div>
-                 <div style="padding-left: 10px; color: aliceblue; min-width: 100px;">Selected: </div>
+                 <div style="padding-right: 10px; color: aliceblue; min-width: 100px; flex-grow: 1;">Invisible: </div>
+                 <div style="padding-left: 10px; color: aliceblue; min-width: 100px; flex-grow: 1;">Selected: </div>
             </div>
             <div style="display: flex; 
                  justify-content: space-between;">
                 <ul [dragula]='"list-bag"' 
                     [dragulaModel]='waitingBag' 
                     class="list-group" 
-                    style="min-width: 100px; padding-right: 10px;">
+                    style="min-width: 100px; padding-right: 10px; flex-grow: 1;">
                     <li 
                         *ngFor="let item of waitingBag" 
                         class="list-group-item" 
@@ -26,7 +26,7 @@ import { MaterialService } from '../../materials.service'
                 <ul [dragula]='"list-bag"' 
                     [dragulaModel]='selectedBag' 
                     class="list-group" 
-                    style="min-width: 100px; padding-left: 10px;">
+                    style="min-width: 100px; padding-left: 10px; flex-grow: 1;">
                     <li 
                         *ngFor="let item of selectedBag" 
                         class="list-group-item" 

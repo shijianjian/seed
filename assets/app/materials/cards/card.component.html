@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-header">
         <!-- Edit Button -->
-        <a (click)="onEdit()" *ngIf="scope.includes('uaa.admin')">
+        <a (click)="onEdit()" *ngIf="(scope | async)?.includes('uaa.admin')">
           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
         </a>
             <my-modal style="padding: 10px;" [title]="'Edit'" #dmodal>
@@ -19,7 +19,7 @@
             <my-modal [title]="'Delete'" #cmodal>
               <div class="modal-body">
                 <p>{{briefing}}</p>
-                <p *ngIf="scope.includes('uaa.admin')">
+                <p *ngIf="(scope | async)?.includes('uaa.admin')">
                     <i
                         class="fa" 
                         [class.fa-check-square-o]="checked"

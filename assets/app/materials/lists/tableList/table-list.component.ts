@@ -14,7 +14,7 @@ import { MaterialService } from '../../materials.service';
     `
 })
 
-export class TableListComponent implements  OnChanges {
+export class TableListComponent implements OnChanges {
     @Input() item;
 
     dataView = [];

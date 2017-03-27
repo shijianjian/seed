@@ -5,25 +5,25 @@
                 <a class="nav-link"
                    [routerLink]="['/']"
                    href="#"
-                   [class.active]="index == 'search'"
+                   [class.active]="(index | async) == 'search'"
                    (click)="onClick('search'); onSearch();">
                     <i class="fa fa-search fa-lg" aria-hidden="true"></i>
                 </a>
             </li>
-            <li class="nav-item" *ngIf="scope.includes('uaa.admin')">
+            <li class="nav-item" *ngIf="(scope | async)?.includes('uaa.admin')">
                 <a class="nav-link"
                    [routerLink]="['/']"
                    href="#"
-                   [class.active]="index == 'upload'"
+                   [class.active]="(index | async) == 'upload'"
                    (click)="onClick('upload'); onUpload();">
                     <i class="fa fa-upload fa-lg" aria-hidden="true"></i>
                 </a>
             </li>
-            <li class="nav-item" *ngIf="scope.includes('uaa.admin')">
+            <li class="nav-item" *ngIf="(scope | async)?.includes('uaa.admin')">
                 <a class="nav-link"
                    [routerLink]="['/']"
                    href="#"
-                   [class.active]="index == 'adding'"
+                   [class.active]="(index | async) == 'adding'"
                    (click)="onClick('adding'); onAdding();">
                     <i class="fa fa-plus fa-lg" aria-hidden="true"></i>
                 </a>
@@ -32,14 +32,14 @@
                 <a class="nav-link"
                    [routerLink]="['/']"
                    href="#"
-                   [class.active]="index == 'config'"
+                   [class.active]="(index | async) == 'config'"
                    (click)="onClick('config'); onConfig();">
                     <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
                 </a>
             </li>
         </ul>
     </div>
-    <div [ngSwitch]="index" style="flex-grow: 1;"  [@animatePanel]="'openPanel'" *ngIf="index!=''">
+    <div [ngSwitch]="(index | async)" style="flex-grow: 1;"  [@animatePanel]="'openPanel'" *ngIf="(index | async)!=''">
         <div *ngSwitchCase="'search'" [@animatePanel]="'active'">
             <my-search-box
                     (useless) = "onUseless($event)"

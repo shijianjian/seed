@@ -1,4 +1,5 @@
-import { Component, Input, Output, ViewChild, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 import { MaterialService } from '../materials.service';
 import { AuthService } from '../../auth/auth.service';
@@ -11,10 +12,10 @@ import { ModalComponent } from '../../common/modal.component';
     templateUrl: './card.component.html'
 })
 
-export class CardComponent{
+export class CardComponent implements OnInit{
     @Input('data') item;
     checked = false;
-    scope = [];
+    scope :BehaviorSubject<string[]>;
 
     @ViewChild('cmodal') cmodal : ModalComponent;
     @ViewChild('dmodal') dmodal : ModalComponent;
@@ -28,14 +29,7 @@ export class CardComponent{
     ) { }
 
     ngOnInit() {
-        this._authService.scope
-            .subscribe(scope => {
-                this.scope = scope;
-            });
-    }
-
-    ngOnDestroy() {
-        this._authService.scope.unsubscribe();
+        this.scope = this._authService.scope;
     }
 
     onEdit() {

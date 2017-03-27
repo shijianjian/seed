@@ -3,6 +3,7 @@
  */
 import { Component, OnInit, OnDestroy, trigger, state, style, transition, animate } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 import { AuthService } from '../../auth/auth.service';
 import { MaterialsEventService } from '../materials.event.service';
@@ -37,10 +38,10 @@ import { MaterialsEventService } from '../materials.event.service';
     ]
 })
 
-export class ToolBoxComponent implements OnInit, OnDestroy {
+export class ToolBoxComponent implements OnInit {
 
-    index: String;
-    scope = [];
+    index: BehaviorSubject<String>;
+    scope: BehaviorSubject<string[]>;
 
     constructor(
         private _materialEventService : MaterialsEventService,
@@ -48,28 +49,17 @@ export class ToolBoxComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        this._materialEventService.sidebarIndex
-            .subscribe(index => {
-                this.index = index;
-            });
-        this._authService.scope
-            .subscribe(scope => {
-                this.scope = scope;
-            });
+        this.index = this._materialEventService.sidebarIndex;
+        this.scope = this._authService.scope;
     }
 
-    ngOnDestroy() {
-        this._authService.scope.unsubscribe();
-        this._materialEventService.sidebarIndex.unsubscribe();
-    }
-
-    onClick(option) : void {
-        if(this.index == 'search') {
+    onClick(option: String) : void {
+        if(this.index.getValue() == 'search') {
             // TODO: since the onBlur() method triggered first.
-        } else if(this.index == option) {
-            this.index = '';
+        } else if(this.index.getValue() == option) {
+            this.index.next('');
         } else {
-            this.index = option;
+            this.index.next(option);
         }
     }
 
@@ -92,7 +82,7 @@ export class ToolBoxComponent implements OnInit, OnDestroy {
     // close the search sidebar
     onUseless(e) : void {
         if(e.clicked == true)
-            this.index = '';
+            this.index.next('');
     }
 
 }
