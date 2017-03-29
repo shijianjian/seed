@@ -13,7 +13,12 @@
 </label>
 
 <div *ngIf="dataName != ''">
-    <br><small>&nbsp;&nbsp;&nbsp;You will upload: &nbsp;&nbsp;&nbsp;</small>{{ dataName }}
+    <div class="alert alert-danger" role="alert" *ngIf="!uploaded">
+        {{ dangerAlert }}
+    </div>
+    <div class="alert alert-info" role="alert" *ngIf="fileIsValid && !uploaded">
+        &nbsp;&nbsp;&nbsp;You will import: &nbsp;&nbsp;&nbsp;<small>{{ dataName }}</small>
+    </div>
     <div class="alert alert-danger" role="alert" *ngIf="!fileIsValid && !uploaded">
         {{ errorMessage }}
     </div>

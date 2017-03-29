@@ -24,6 +24,7 @@ export class UploadComponent{
 
     dataName = "";
     data;
+    dangerAlert = "Danger! This operation will rewrite the whole database!"
     errorMessage = "For god's sake! Upload a CSV file please!!!!";
     fileIsValid = false;
     uploaded = false;
@@ -40,6 +41,7 @@ export class UploadComponent{
         this.data = files[0];
         this.dataName = this.data.name;
         this.fileIsValid = this.fileValidation();
+        this.uploaded = false;
     }
 
     onExport() {
