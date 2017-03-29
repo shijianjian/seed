@@ -54,6 +54,7 @@ export class UploadComponent{
 
     onConfirm() : void {
         this._materialService.importCsv(this.data);
+        this._materialService.getColumns();
         this.fileImport.nativeElement.value = "";
         this.dataName = "";
         this.uploaded = true;
