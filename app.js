@@ -1,17 +1,21 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var request = require('request');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const request = require('request');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const session = require('express-session');
 
 var passport = require('passport');
-var passportConfig = require('./passport-config');
-var session = require('express-session');
-var config = require('./predix-config');
+const passportConfig = require('./passport-config');
+const config = require('./predix-config');
 
-var appRoutes = require('./routes/app');
+const RedisStore = require('connect-redis')(session);
+const redis = require('redis');
+const redisClient  = redis.createClient();
+
+const appRoutes = require('./routes/app');
 
 var app = express();
 
@@ -36,11 +40,16 @@ app.use(function (req, res, next) {
 
 passport = passportConfig.configurePassportStrategy();
 
-app.use(session({
-  secret: 'keyboard cat',
+app.use(session({  
+  store: new RedisStore({
+    url: config.redisStore.url,
+    client: redisClient
+  }),
+  secret: config.redisStore.password,
   resave: false,
   saveUninitialized: false
 }));
+
 app.use(passport.initialize());
 // Also use passport.session() middleware, to support persistent login sessions (recommended).
 app.use(passport.session());
@@ -59,13 +68,17 @@ app.get('/signin/callback', function(req, res, next) {
         req.logIn(user, function(err) {
             if (err) { return next(err); }
             res.cookie('token', user.ticket.access_token);
+            redisClient.set('token', user.ticket.access_token, redis.print);
+            // redisClient.get('token', redis.print)
             return res.redirect('/material');
         });
     })(req, res, next);
 });
 
 app.get('/logout', function(req, res) {
-    req.session.destroy();
+    if(req.session) {
+        req.session.destroy();
+    }
     req.logout();
     passportConfig.reset();
     res.redirect(config.uaaURL + '/logout?redirect=' + config.appURL);

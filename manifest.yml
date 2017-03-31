@@ -6,8 +6,10 @@ applications:
   command:  node ./bin/www
 services:
    - uaa
+   - redis
 env:
     node_env: cloud
     uaa_service_label : predix-uaa
+    redis_service_label : redis-11
     clientId: foo
     clientSecret: foo
