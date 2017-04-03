@@ -13,3 +13,4 @@ env:
     redis_service_label : redis-11
     clientId: foo
     clientSecret: foo
+

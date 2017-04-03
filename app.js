@@ -67,25 +67,33 @@ app.get('/signin/callback', function(req, res, next) {
         if(!user) { return res.redirect('/login'); }
         req.logIn(user, function(err) {
             if (err) { return next(err); }
-            res.cookie('token', user.ticket.access_token);
-            redisClient.set('token', user.ticket.access_token, redis.print);
-            // redisClient.get('token', redis.print)
+            redisClient.set('token', user.ticket.access_token);
             return res.redirect('/material');
         });
     })(req, res, next);
+});
+
+app.get('/signin/token', function(req, res, next) {
+    redisClient.get('token', function(err, value) {
+        res.json({
+            token: value
+        })
+    })
+    return res;
 });
 
 app.get('/logout', function(req, res) {
     if(req.session) {
         req.session.destroy();
     }
+    redisClient.del('token');
     req.logout();
     passportConfig.reset();
     res.redirect(config.uaaURL + '/logout?redirect=' + config.appURL);
 })
 
 app.get('/isauthenticated', function (req, res) {
-    var token = req.query.token ? req.query.token : req.body.token;
+    var token = req.query.token;
     if(typeof token === 'undefined') {
         res.status = 401;
         return res.json('Can not find token.')
@@ -109,13 +117,16 @@ app.get('/isauthenticated', function (req, res) {
     }
 
     return request(options, function (error, response, body) {
+        console.log(!error);
+        console.log(response.statusCode);
         if (!error && response.statusCode == 200) {
             return res.json({
                 isAuthenticated : true,
                 body : JSON.parse(body)
             })
         }
-        return res.err(error);
+        console.log('Here we are ')
+        return res.json(error);
     })
 })
 
