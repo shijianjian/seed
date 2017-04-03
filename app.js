@@ -13,7 +13,11 @@ const config = require('./predix-config');
 
 const RedisStore = require('connect-redis')(session);
 const redis = require('redis');
-const redisClient  = redis.createClient();
+const redisClient  = redis.createClient(config.redisStore);
+
+redisClient.on('error', function(err){
+    console.log('Error '+ err);
+})
 
 const appRoutes = require('./routes/app');
 
@@ -41,13 +45,13 @@ app.use(function (req, res, next) {
 passport = passportConfig.configurePassportStrategy();
 
 app.use(session({  
-  store: new RedisStore({
-    url: config.redisStore.url,
-    client: redisClient
-  }),
-  secret: config.redisStore.password,
-  resave: false,
-  saveUninitialized: false
+    store: new RedisStore({
+        url: config.redisStore.url,
+        client: redisClient
+    }),
+    secret: config.redisStore.password ? config.redisStore.password : 'password',
+    resave: false,
+    saveUninitialized: false
 }));
 
 app.use(passport.initialize());
@@ -64,21 +68,30 @@ app.get('/signin', passport.authenticate('predix', {'scope': ''}), function(req,
 app.get('/signin/callback', function(req, res, next) {
     passport.authenticate('predix', function(err, user, info) {
         if(err) { return next(err); }
-        if(!user) { return res.redirect('/login'); }
+        if(!user) { return res.redirect('/#/login'); }
         req.logIn(user, function(err) {
             if (err) { return next(err); }
             redisClient.set('token', user.ticket.access_token);
-            return res.redirect('/material');
+            return res.redirect('/#/material');
         });
     })(req, res, next);
 });
 
 app.get('/signin/token', function(req, res, next) {
-    redisClient.get('token', function(err, value) {
-        res.json({
-            token: value
+    if(redisClient.exists('token')){
+        redisClient.get('token', function(err, value) {
+            if(err) {
+                res.json({
+                    error: err
+                })
+            }
+            res.json({
+                token: value
+            })
         })
-    })
+    } else {
+        res.redirect('/#/login');
+    }
     return res;
 });
 

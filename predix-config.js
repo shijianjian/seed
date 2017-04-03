@@ -23,7 +23,6 @@ if(node_env === 'development') {
 	settings.redisStore = devConfig.redisStore;
 	settings.redisStore.host = devConfig.redisStore.host;
 	settings.redisStore.port = devConfig.redisStore.port;
-	settings.redisStore.password = devConfig.redisStore.password;
 
 } else {
 	// read VCAP_SERVICES
