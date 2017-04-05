@@ -76,7 +76,6 @@ app.get('/signin/callback', function(req, res, next) {
             if (err) { return next(err); }
             const sid = req.cookies["connect.sid"] ? req.cookies["connect.sid"] : '';
             if(existsInRedis(sid)) {
-                console.log('set token');
                 redisClient.hset(sid, 'token', user.ticket.access_token);
                 redisClient.expireat(sid, user.exp);
             }
@@ -88,14 +87,12 @@ app.get('/signin/callback', function(req, res, next) {
 
 app.get('/signin/token', function(req, res, next) {
     var sid = req.query.sid ? req.query.sid : '';
-    console.log(sid);
     if(sid == '') {
         return res.json({
             token: ''
         });
     }
     if(existsInRedis(sid)){
-        console.log('get token')
         redisClient.hget(sid, 'token', function(err, value) {
             if(err) {
                 res.json({

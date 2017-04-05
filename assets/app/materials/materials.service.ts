@@ -153,6 +153,10 @@ export class MaterialService{
                         if(!exists)
                             _dataView.push({key: columns[i] , value: exists});
                     }
+                    // reverse logic, every selected item will be displayed by default.
+                    for(let i=0; i<_dataView.length; i++) {
+                        _dataView[i].value = !_dataView[i].value;
+                    }
                     this.dataView.next(_dataView);
                 })
             }
