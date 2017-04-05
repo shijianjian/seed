@@ -44,6 +44,7 @@ router.get('/userview', function (req, res, next) {
             })
         })
     } else {
+        console.log('dataviewfield not exists')
         redisClient.hget(defaultKey, dataviewField, function(err, value) {
             if(err) {
                 return res.json({ error: err })
@@ -71,12 +72,13 @@ router.post('/userview', function(req, res, next) {
 })
 
 router.get('/defaultview', function(req, res, next) {
-    var DefaultView = '';
     redisClient.hget(defaultKey, dataviewField, function(err, value) {
         if(err) { return res.json({ error: err }) }
-        DefaultView = value;
+        res.json({
+            dataview: value ? value.split(',') : ''
+        })
     });
-    return res.json({ dataview: DefaultView })
+    return res;
 })
 
 router.post('/defaultview', function(req, res, next) {
