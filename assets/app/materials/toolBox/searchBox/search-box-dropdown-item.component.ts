@@ -21,29 +21,16 @@ import { MaterialService } from '../../materials.service';
                     *ngIf="
                         one.key.trim().toLowerCase() == majorData.key.trim().toLowerCase()"> {{one.value}}</div>
             </div>
-            <div *ngFor="let t of targetList" class="input-group my-search-list">
-                <div 
-                    class="input-group-addon my-search-list-item" 
-                    style="flex:5"
-                    *ngIf="
-                        one.value 
-                        && one.key != majorData.key
-                        && (displayOtherDropdownItems | async)
-                        && one.value.toUpperCase().indexOf(t.toUpperCase())>-1 
-                        && t!='' 
-                        && one.key.toUpperCase()!='ID'
-                        && one.key.trim().toLowerCase() != majorData.key.trim().toLowerCase()"> {{one.key}}</div>
-                <div 
-                    class="form-control my-search-list-item" 
-                    style="flex:7"
-                    *ngIf="
-                        one.value 
-                        && one.key != majorData.key
-                        && (displayOtherDropdownItems | async)
-                        && one.value.toUpperCase().indexOf(t.toUpperCase())>-1 
-                        && t!='' 
-                        && one.key.toUpperCase()!='ID'
-                        && one.key.trim().toLowerCase() != majorData.key.trim().toLowerCase()"> {{one.value}}</div>
+            <div *ngFor="let t of targetList" >
+                <div class="input-group my-search-list"
+                        *ngIf="(displayOtherDropdownItems | async) && showupData(one, t, majorData)">
+                    <div 
+                        class="input-group-addon my-search-list-item" 
+                        style="flex:5"> {{one.key}}</div>
+                    <div 
+                        class="form-control my-search-list-item" 
+                        style="flex:7"> {{one.value}}</div>
+                </div>
             </div>
         </a>
         `,
@@ -60,7 +47,7 @@ export class SearchBoxDropdownItemComponent implements OnChanges, OnInit {
     @Input() target : string;
 
     data = [];
-    majorData = {};
+    majorData: any;
     targetList = [];
     displayOtherDropdownItems;
 
@@ -74,15 +61,21 @@ export class SearchBoxDropdownItemComponent implements OnChanges, OnInit {
     }
 
     ngOnChanges() {
-        this.targetList = this.target.trim().split(" ");
+        this.targetList = this.reduceDuplication(this.target.trim().split(" "))
         this.getMajorData();
+    }
+
+    reduceDuplication(list: string[]) : string[] {
+        return list = list.filter( function( item, index, inputArray ) {
+           return inputArray.indexOf(item) == index;
+        });
     }
 
     onClick(data) : void {
         this._materialEventService.updateData(data);
     }
 
-    getMajorData() {
+    getMajorData() : void {
         let dataview = this._materialService.dataView.getValue();
         for(let i=0; i<dataview.length; i++) {
             if((<any>dataview[i]).key != 'id' && (<any>dataview[i]).value == true) {
@@ -90,5 +83,20 @@ export class SearchBoxDropdownItemComponent implements OnChanges, OnInit {
                 break;
             }
         } 
+    }
+
+    showupData(one, t, majorData) : boolean {
+        return (
+            one.value
+            && one.value.toUpperCase().indexOf(t.toUpperCase())>-1 
+            && majorData
+            && majorData.key
+            && one.key.trim().toLowerCase() != majorData.key.trim().toLowerCase()
+            && one.key 
+            && one.key != majorData.key
+            && t!='' 
+            && one.key.toUpperCase()!='ID'
+            
+        )
     }
 }
